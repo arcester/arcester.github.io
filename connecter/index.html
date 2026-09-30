@@ -5,33 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Connecter — Tus unidades de red, siempre conectadas</title>
   <meta name="description" content="Connecter es una utilidad de la barra de menús de macOS que monta y vigila tus carpetas compartidas SMB automáticamente.">
+  <link rel="canonical" href="https://arcester.github.io/connecter/">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="icon.png">
+  <meta name="theme-color" content="#1a6dff">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://arcester.github.io/connecter/">
   <meta property="og:title" content="Connecter">
   <meta property="og:description" content="Tus unidades de red SMB, siempre conectadas en tu Mac.">
   <meta property="og:image" content="https://arcester.github.io/connecter/icon.png">
+  <meta name="twitter:card" content="summary">
   <style>
     :root {
       --bg: #f5f7fb;
       --surface: #ffffff;
+      --surface-2: #eef2f9;
       --text: #1d1d1f;
       --muted: #5b6270;
       --accent: #1a6dff;
       --accent-2: #19b8f0;
       --border: #e3e7ef;
+      --ok: #1fa45a;
+      --warn: #e59a00;
+      --shadow: 0 24px 60px rgba(20, 40, 90, .16);
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #0d0f14;
         --surface: #161a22;
+        --surface-2: #1c212b;
         --text: #f2f4f8;
         --muted: #9aa3b2;
         --accent: #4a8dff;
         --accent-2: #3cc8f5;
         --border: #262c38;
+        --ok: #34c472;
+        --warn: #f2b233;
+        --shadow: 0 24px 60px rgba(0, 0, 0, .5);
       }
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       background: var(--bg);
@@ -39,33 +53,116 @@
       font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
-    main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
-    .hero { text-align: center; padding: 88px 0 56px; }
-    .hero img {
-      width: 128px; height: 128px;
-      border-radius: 28px;
-      box-shadow: 0 18px 40px rgba(26, 109, 255, .28);
+    a { color: var(--accent); }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+    section { scroll-margin-top: 72px; }
+
+    /* Navegación */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); text-decoration: none; }
+    .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 15px; }
+    nav ul a { color: var(--muted); text-decoration: none; }
+    nav ul a:hover { color: var(--text); }
+    @media (max-width: 640px) { nav ul { display: none; } }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 48px;
+      align-items: center;
+      padding: 80px 0 72px;
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 56px 0; }
+      .hero .actions { justify-content: center; }
+    }
+    .hero .icon {
+      width: 96px; height: 96px;
+      border-radius: 22px;
+      box-shadow: 0 16px 36px rgba(26, 109, 255, .3);
     }
     h1 {
-      font-size: clamp(40px, 7vw, 60px);
-      letter-spacing: -.02em;
-      margin: 28px 0 8px;
+      font-size: clamp(40px, 7vw, 62px);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+      margin: 24px 0 14px;
     }
-    .tagline { font-size: clamp(19px, 3vw, 23px); color: var(--muted); margin: 0 auto 32px; max-width: 34em; }
-    .badge {
+    h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+    }
+    .tagline { font-size: clamp(18px, 2.6vw, 21px); color: var(--muted); margin: 0 0 30px; max-width: 30em; }
+    @media (max-width: 860px) { .tagline { margin-left: auto; margin-right: auto; } }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn {
       display: inline-block;
       padding: 12px 22px;
       border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
       font-weight: 600;
+      text-decoration: none;
     }
-    .req { color: var(--muted); font-size: 14px; margin-top: 14px; }
-    .features {
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
+    .req { color: var(--muted); font-size: 14px; margin-top: 16px; }
+
+    /* Maqueta del menú (ilustrativa) */
+    .mock {
+      background: linear-gradient(160deg, #1a6dff 0%, #19b8f0 100%);
+      border-radius: 20px;
+      padding: 0 0 36px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .menubar {
+      display: flex; justify-content: flex-end; align-items: center; gap: 14px;
+      height: 28px; padding: 0 14px;
+      background: rgba(255, 255, 255, .22);
+      color: #fff; font-size: 13px; font-weight: 500;
+    }
+    .menubar .active { background: rgba(255, 255, 255, .3); border-radius: 5px; padding: 2px 6px; }
+    .menubar svg { display: block; }
+    .panel {
+      margin: 10px 18px 0 auto;
+      width: min(310px, calc(100% - 36px));
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+      font-size: 14px;
+      text-align: left;
+    }
+    .panel .head { display: flex; justify-content: space-between; padding: 6px 10px 8px; font-weight: 600; }
+    .panel .head small { color: var(--muted); font-weight: 400; }
+    .share { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; }
+    .share:hover { background: var(--surface-2); }
+    .share .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+    .share .name { flex: 1; min-width: 0; }
+    .share .name small { display: block; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .share .st { font-size: 12px; color: var(--muted); }
+    .panel hr { border: 0; border-top: 1px solid var(--border); margin: 6px 4px; }
+    .panel .item { padding: 6px 10px; color: var(--muted); }
+
+    /* Secciones */
+    .section { padding: 72px 0; border-top: 1px solid var(--border); }
+    .section h2 { font-size: clamp(28px, 4.5vw, 38px); letter-spacing: -.02em; margin: 0 0 10px; }
+    .section .lead { color: var(--muted); font-size: 18px; margin: 0 0 36px; max-width: 36em; }
+
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
-      padding-bottom: 72px;
     }
     .card {
       background: var(--surface);
@@ -73,8 +170,70 @@
       border-radius: 16px;
       padding: 22px 24px;
     }
-    .card h2 { font-size: 18px; margin: 0 0 6px; }
+    .card .ico {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: grid; place-items: center;
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .card h3 { font-size: 18px; margin: 0 0 6px; }
     .card p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+    .steps { counter-reset: step; }
+    .steps .card { position: relative; padding-top: 58px; }
+    .steps .card::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute; top: 20px; left: 24px;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff; font-weight: 700; font-size: 14px;
+    }
+
+    .privacy {
+      display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+      padding: 32px;
+    }
+    @media (max-width: 640px) { .privacy { grid-template-columns: 1fr; padding: 24px; } }
+    .privacy .shield {
+      width: 64px; height: 64px; border-radius: 16px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+    }
+    .privacy h2 { margin-top: 0; }
+    .privacy ul { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+    .privacy li { margin: 6px 0; }
+    .privacy li strong { color: var(--text); }
+
+    .faq details {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 22px;
+      margin-bottom: 10px;
+    }
+    .faq summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; color: var(--muted); font-weight: 400; font-size: 22px; line-height: 1; }
+    .faq details[open] summary::after { content: "−"; }
+    .faq details p { color: var(--muted); margin: 10px 0 0; }
+
+    .cta {
+      text-align: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      border-radius: 24px;
+      padding: 56px 24px;
+      margin: 72px 0;
+    }
+    .cta img { width: 72px; height: 72px; border-radius: 17px; box-shadow: 0 10px 24px rgba(0, 0, 0, .2); }
+    .cta h2 { font-size: clamp(26px, 4vw, 34px); margin: 18px 0 8px; letter-spacing: -.02em; }
+    .cta p { margin: 0 auto 24px; opacity: .9; max-width: 30em; }
+    .cta .btn { background: #fff; color: #1a6dff; }
+
     footer {
       border-top: 1px solid var(--border);
       padding: 28px 16px 40px;
@@ -83,47 +242,184 @@
       font-size: 14px;
     }
     footer a { color: var(--accent); text-decoration: none; }
+    footer nav { position: static; background: none; border: 0; backdrop-filter: none; -webkit-backdrop-filter: none; margin-bottom: 8px; }
+    footer nav a { margin: 0 10px; }
   </style>
 </head>
 <body>
-  <main>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#"><img src="favicon.png" alt="">Connecter</a>
+      <ul>
+        <li><a href="#funciones">Funciones</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#privacidad">Privacidad</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+        <li><a href="#soporte">Soporte</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="wrap">
     <section class="hero">
-      <img src="icon.png" alt="Icono de Connecter">
-      <h1>Connecter</h1>
-      <p class="tagline">Tus unidades de red SMB, siempre conectadas. Connecter vive en la barra de menús de tu Mac y monta tus carpetas compartidas por ti.</p>
-      <span class="badge">Próximamente en el Mac App Store</span>
-      <p class="req">Requiere macOS 26 Tahoe o posterior</p>
+      <div>
+        <img class="icon" src="icon.png" alt="Icono de Connecter">
+        <h1>Tus unidades de red, <span>siempre conectadas</span>.</h1>
+        <p class="tagline">Connecter vive en la barra de menús de tu Mac y monta tus carpetas compartidas SMB por ti: al arrancar, tras el reposo y cada vez que cambia la red.</p>
+        <div class="actions">
+          <span class="btn btn-primary">Próximamente en el Mac App Store</span>
+          <a class="btn btn-ghost" href="#funciones">Ver funciones</a>
+        </div>
+        <p class="req">Requiere macOS 26 Tahoe o posterior</p>
+      </div>
+
+      <div class="mock" aria-hidden="true">
+        <div class="menubar">
+          <span class="active">
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="2" width="16" height="10" rx="2" fill="#fff"/><path d="M1 4.5V3a1 1 0 0 1 1-1h4l1.5 1.5" stroke="#fff" stroke-width="1.5"/></svg>
+          </span>
+          <span>Wi‑Fi</span>
+          <span>mar 30 sept 21:50</span>
+        </div>
+        <div class="panel">
+          <div class="head">Connecter <small>3 carpetas</small></div>
+          <div class="share">
+            <span class="dot" style="background:var(--ok)"></span>
+            <span class="name">Documentos<small>smb://nas.local/documentos</small></span>
+            <span class="st">Montada</span>
+          </div>
+          <div class="share">
+            <span class="dot" style="background:var(--ok)"></span>
+            <span class="name">Fotos<small>smb://nas.local/fotos</small></span>
+            <span class="st">Montada</span>
+          </div>
+          <div class="share">
+            <span class="dot" style="background:var(--warn)"></span>
+            <span class="name">Copias<small>smb://servidor/copias</small></span>
+            <span class="st">Reintentando…</span>
+          </div>
+          <hr>
+          <div class="item">Registro de actividad…</div>
+          <div class="item">Ajustes…</div>
+        </div>
+      </div>
     </section>
 
-    <section class="features">
-      <div class="card">
-        <h2>Montaje automático</h2>
-        <p>Conecta tus carpetas al arrancar y las recupera tras el reposo, los cambios de red y los cortes.</p>
+    <section class="section" id="funciones">
+      <h2>Todo lo que necesitas, nada que no.</h2>
+      <p class="lead">Connecter se encarga de que tus carpetas de red estén donde las esperas, sin que tengas que volver a abrir «Conectarse al servidor».</p>
+      <div class="grid">
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></div>
+          <h3>Montaje automático</h3>
+          <p>Conecta tus carpetas al arrancar y las recupera tras el reposo, los cambios de red y los cortes.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="17" cy="6.5" r=".5" fill="currentColor"/></svg></div>
+          <h3>Estado de un vistazo</h3>
+          <p>El icono de la barra de menús te avisa solo cuando algo requiere tu atención.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg></div>
+          <h3>Contraseñas en el Llavero</h3>
+          <p>Las credenciales se guardan únicamente en el Llavero de macOS, nunca en disco.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+          <h3>Reintentos inteligentes</h3>
+          <p>Espera progresiva entre intentos y pausa automática mientras no hay conexión.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></div>
+          <h3>Registro de actividad</h3>
+          <p>Historial filtrable de montajes, desconexiones y errores.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <h3>Nativa y ligera</h3>
+          <p>Hecha en SwiftUI, sin dependencias externas y dentro del App Sandbox.</p>
+        </div>
       </div>
-      <div class="card">
-        <h2>Estado de un vistazo</h2>
-        <p>El icono de la barra de menús te avisa solo cuando algo requiere tu atención.</p>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <h2>Configúralo una vez. Olvídate.</h2>
+      <p class="lead">Tres pasos y tus unidades de red dejan de ser un problema.</p>
+      <div class="grid steps">
+        <div class="card">
+          <h3>Añade tus carpetas</h3>
+          <p>Indica la dirección SMB de cada carpeta compartida de tu NAS o servidor.</p>
+        </div>
+        <div class="card">
+          <h3>Guarda tus credenciales</h3>
+          <p>Usuario y contraseña quedan protegidos en el Llavero de macOS.</p>
+        </div>
+        <div class="card">
+          <h3>Déjalo en la barra de menús</h3>
+          <p>Connecter monta, vigila y reconecta en segundo plano. Solo te avisa si algo falla.</p>
+        </div>
       </div>
-      <div class="card">
-        <h2>Contraseñas en el Llavero</h2>
-        <p>Las credenciales se guardan únicamente en el Llavero de macOS, nunca en disco.</p>
+    </section>
+
+    <section class="section" id="privacidad">
+      <div class="privacy">
+        <div class="shield"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div>
+          <h2>Privacidad</h2>
+          <p class="lead" style="margin-bottom:0">Connecter trabaja en tu Mac y con tu red. Tus datos son tuyos.</p>
+          <ul>
+            <li><strong>Sin recogida de datos.</strong> Connecter no recopila, no envía ni comparte información personal ni de uso con el desarrollador ni con terceros.</li>
+            <li><strong>Credenciales en el Llavero.</strong> Las contraseñas se almacenan exclusivamente en el Llavero de macOS; nunca se escriben en disco en texto plano.</li>
+            <li><strong>Datos locales.</strong> La configuración y el registro de actividad se guardan solo en tu Mac y puedes borrarlos desinstalando la aplicación.</li>
+            <li><strong>App Sandbox.</strong> La aplicación se ejecuta aislada dentro del App Sandbox de macOS, con acceso únicamente a lo que necesita.</li>
+          </ul>
+        </div>
       </div>
-      <div class="card">
-        <h2>Reintentos inteligentes</h2>
-        <p>Espera progresiva entre intentos y pausa automática mientras no hay conexión.</p>
-      </div>
-      <div class="card">
-        <h2>Registro de actividad</h2>
-        <p>Historial filtrable de montajes, desconexiones y errores.</p>
-      </div>
-      <div class="card">
-        <h2>Nativa y ligera</h2>
-        <p>Hecha en SwiftUI, sin dependencias externas y dentro del App Sandbox.</p>
-      </div>
+    </section>
+
+    <section class="section faq" id="preguntas">
+      <h2>Preguntas frecuentes</h2>
+      <p class="lead">Lo que suele preguntarse antes de instalarla.</p>
+      <details>
+        <summary>¿Qué tipo de carpetas compartidas admite?</summary>
+        <p>Carpetas compartidas por SMB, el protocolo que usan la mayoría de NAS (Synology, QNAP…), servidores Windows y otros Mac.</p>
+      </details>
+      <details>
+        <summary>¿Qué versión de macOS necesito?</summary>
+        <p>macOS 26 Tahoe o posterior.</p>
+      </details>
+      <details>
+        <summary>¿Qué pasa si cierro la tapa o cambio de Wi‑Fi?</summary>
+        <p>Al despertar el Mac o al detectar un cambio de red, Connecter vuelve a montar tus carpetas automáticamente. Si no hay conexión, pausa los intentos hasta que vuelva.</p>
+      </details>
+      <details>
+        <summary>¿Dónde se guardan mis contraseñas?</summary>
+        <p>Únicamente en el Llavero de macOS, el mismo sistema que usa el propio sistema operativo para tus contraseñas.</p>
+      </details>
+      <details>
+        <summary>¿Cuándo estará disponible?</summary>
+        <p>Connecter llegará próximamente al Mac App Store. Esta página se actualizará con el enlace de descarga.</p>
+      </details>
+    </section>
+
+    <section class="section" id="soporte">
+      <h2>Soporte</h2>
+      <p class="lead">¿Algo no funciona como esperabas o tienes una sugerencia? Escríbeme a través de <a href="https://arcesaez.com/">arcesaez.com</a> e incluye, si puedes, tu versión de macOS y las entradas relevantes del registro de actividad.</p>
+    </section>
+
+    <section class="cta">
+      <img src="icon.png" alt="">
+      <h2>Deja de reconectar a mano.</h2>
+      <p>Connecter llegará pronto al Mac App Store.</p>
+      <span class="btn">Próximamente</span>
     </section>
   </main>
 
   <footer>
+    <nav>
+      <a href="#privacidad">Privacidad</a>
+      <a href="#soporte">Soporte</a>
+    </nav>
     © 2026 <a href="https://arcesaez.com/">Guzmán Arce</a>
   </footer>
 </body>
