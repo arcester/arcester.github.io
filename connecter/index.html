@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connecter — Tus unidades de red, siempre conectadas</title>
+  <meta name="description" content="Connecter es una utilidad de la barra de menús de macOS que monta y vigila tus carpetas compartidas SMB automáticamente.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <meta property="og:title" content="Connecter">
+  <meta property="og:description" content="Tus unidades de red SMB, siempre conectadas en tu Mac.">
+  <meta property="og:image" content="https://arcester.github.io/connecter/icon.png">
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --muted: #5b6270;
+      --accent: #1a6dff;
+      --accent-2: #19b8f0;
+      --border: #e3e7ef;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d0f14;
+        --surface: #161a22;
+        --text: #f2f4f8;
+        --muted: #9aa3b2;
+        --accent: #4a8dff;
+        --accent-2: #3cc8f5;
+        --border: #262c38;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+    .hero { text-align: center; padding: 88px 0 56px; }
+    .hero img {
+      width: 128px; height: 128px;
+      border-radius: 28px;
+      box-shadow: 0 18px 40px rgba(26, 109, 255, .28);
+    }
+    h1 {
+      font-size: clamp(40px, 7vw, 60px);
+      letter-spacing: -.02em;
+      margin: 28px 0 8px;
+    }
+    .tagline { font-size: clamp(19px, 3vw, 23px); color: var(--muted); margin: 0 auto 32px; max-width: 34em; }
+    .badge {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-weight: 600;
+    }
+    .req { color: var(--muted); font-size: 14px; margin-top: 14px; }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      padding-bottom: 72px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+    }
+    .card h2 { font-size: 18px; margin: 0 0 6px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15.5px; }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 16px 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <img src="icon.png" alt="Icono de Connecter">
+      <h1>Connecter</h1>
+      <p class="tagline">Tus unidades de red SMB, siempre conectadas. Connecter vive en la barra de menús de tu Mac y monta tus carpetas compartidas por ti.</p>
+      <span class="badge">Próximamente en el Mac App Store</span>
+      <p class="req">Requiere macOS 26 Tahoe o posterior</p>
+    </section>
+
+    <section class="features">
+      <div class="card">
+        <h2>Montaje automático</h2>
+        <p>Conecta tus carpetas al arrancar y las recupera tras el reposo, los cambios de red y los cortes.</p>
+      </div>
+      <div class="card">
+        <h2>Estado de un vistazo</h2>
+        <p>El icono de la barra de menús te avisa solo cuando algo requiere tu atención.</p>
+      </div>
+      <div class="card">
+        <h2>Contraseñas en el Llavero</h2>
+        <p>Las credenciales se guardan únicamente en el Llavero de macOS, nunca en disco.</p>
+      </div>
+      <div class="card">
+        <h2>Reintentos inteligentes</h2>
+        <p>Espera progresiva entre intentos y pausa automática mientras no hay conexión.</p>
+      </div>
+      <div class="card">
+        <h2>Registro de actividad</h2>
+        <p>Historial filtrable de montajes, desconexiones y errores.</p>
+      </div>
+      <div class="card">
+        <h2>Nativa y ligera</h2>
+        <p>Hecha en SwiftUI, sin dependencias externas y dentro del App Sandbox.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 <a href="https://arcesaez.com/">Guzmán Arce</a>
+  </footer>
+</body>
+</html>
