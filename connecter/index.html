@@ -115,44 +115,156 @@
     .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
     .req { color: var(--muted); font-size: 14px; margin-top: 16px; }
 
-    /* Maqueta del menú (ilustrativa) */
-    .mock {
-      background: linear-gradient(160deg, #1a6dff 0%, #19b8f0 100%);
+    /* Recreaciones de la interfaz real (Views/MenuBar, ContentView, ShareRow, LogView) */
+    :root {
+      --mac-menu-bg: rgba(246, 246, 248, .82);
+      --mac-menu-text: #1d1d1f;
+      --mac-menu-dim: rgba(0, 0, 0, .38);
+      --mac-sep: rgba(0, 0, 0, .1);
+      --mac-hl: #1a6dff;
+      --mac-win: #f6f6f8;
+      --mac-card: rgba(255, 255, 255, .78);
+      --mac-card-edge: rgba(0, 0, 0, .06);
+      --mac-tert: rgba(0, 0, 0, .32);
+      --mac-glass: rgba(255, 255, 255, .7);
+      --mac-idle-dot: #ccccd1;
+      --mac-green: #28c840;
+      --mac-orange: #ff9f0a;
+      --mac-red: #ff3b30;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --mac-menu-bg: rgba(40, 40, 44, .82);
+        --mac-menu-text: #f2f2f5;
+        --mac-menu-dim: rgba(255, 255, 255, .35);
+        --mac-sep: rgba(255, 255, 255, .12);
+        --mac-win: #1e1e22;
+        --mac-card: rgba(255, 255, 255, .06);
+        --mac-card-edge: rgba(255, 255, 255, .08);
+        --mac-tert: rgba(255, 255, 255, .32);
+        --mac-glass: rgba(255, 255, 255, .1);
+        --mac-green: #30d158;
+        --mac-orange: #ff9f0a;
+        --mac-red: #ff453a;
+      }
+    }
+    .sysfont { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .desk {
+      position: relative;
       border-radius: 20px;
-      padding: 0 0 36px;
-      box-shadow: var(--shadow);
       overflow: hidden;
-    }
-    .menubar {
-      display: flex; justify-content: flex-end; align-items: center; gap: 14px;
-      height: 28px; padding: 0 14px;
-      background: rgba(255, 255, 255, .22);
-      color: #fff; font-size: 13px; font-weight: 500;
-    }
-    .menubar .active { background: rgba(255, 255, 255, .3); border-radius: 5px; padding: 2px 6px; }
-    .menubar svg { display: block; }
-    .panel {
-      margin: 10px 18px 0 auto;
-      width: min(310px, calc(100% - 36px));
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 8px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
-      font-size: 14px;
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(120% 90% at 85% 10%, #3ec5f5 0%, transparent 55%),
+        radial-gradient(90% 80% at 10% 100%, #5b3cf0 0%, transparent 60%),
+        linear-gradient(160deg, #1a6dff, #0b3fb8);
+      min-height: 400px;
       text-align: left;
     }
-    .panel .head { display: flex; justify-content: space-between; padding: 6px 10px 8px; font-weight: 600; }
-    .panel .head small { color: var(--muted); font-weight: 400; }
-    .share { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; }
-    .share:hover { background: var(--surface-2); }
-    .share .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
-    .share .name { flex: 1; min-width: 0; }
-    .share .name small { display: block; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .share .st { font-size: 12px; color: var(--muted); }
-    .panel hr { border: 0; border-top: 1px solid var(--border); margin: 6px 4px; }
-    .panel .item { padding: 6px 10px; color: var(--muted); }
+    .mbar {
+      display: flex; align-items: center; justify-content: flex-end; gap: 16px;
+      height: 30px; padding: 0 16px;
+      color: #fff; font-size: 13px; font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+    }
+    .mbar .left { margin-right: auto; display: flex; gap: 18px; align-items: center; }
+    .mbar .left b { font-weight: 700; }
+    .mbar .sel { position: relative; padding: 3px 7px; border-radius: 6px; background: rgba(255, 255, 255, .28); }
+    .mbar svg { display: block; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .2)); }
+    .nsmenu {
+      position: absolute; top: 34px; right: 118px;
+      width: 262px;
+      padding: 5px;
+      background: var(--mac-menu-bg);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      border: .5px solid rgba(255, 255, 255, .35);
+      border-radius: 12px;
+      box-shadow: 0 0 0 .5px rgba(0, 0, 0, .18), 0 14px 38px rgba(0, 0, 0, .3);
+      color: var(--mac-menu-text);
+      font-size: 13px;
+    }
+    @media (max-width: 480px) { .nsmenu { right: 12px; } }
+    .mi { display: flex; align-items: center; gap: 7px; height: 24px; padding: 0 9px; border-radius: 7px; white-space: nowrap; }
+    .mi.dis { color: var(--mac-menu-dim); }
+    .mi.hl { background: var(--mac-hl); color: #fff; }
+    .mi .kb { margin-left: auto; color: var(--mac-menu-dim); letter-spacing: .04em; }
+    .mi.hl .kb { color: rgba(255, 255, 255, .75); }
+    .mi .d {
+      width: 7px; height: 7px; border-radius: 50%; flex: none;
+      box-shadow: 0 .5px 1px rgba(0, 0, 0, .35);
+    }
+    .msep { height: 1px; background: var(--mac-sep); margin: 5px 9px; }
+    .d.g { background: var(--mac-green); } .d.o { background: var(--mac-orange); }
+    .d.r { background: var(--mac-red); } .d.i { background: var(--mac-idle-dot); }
+
+    /* Ventanas */
+    .shots { display: grid; grid-template-columns: 1fr 1.15fr; gap: 28px; align-items: start; }
+    @media (max-width: 860px) { .shots { grid-template-columns: 1fr; } }
+    .shots figure { margin: 0; min-width: 0; }
+    .shots figcaption { color: var(--muted); font-size: 14.5px; margin-top: 14px; text-align: center; }
+    .win {
+      background: var(--mac-win);
+      color: var(--mac-menu-text);
+      border-radius: 18px;
+      box-shadow: 0 0 0 .5px rgba(0, 0, 0, .2), var(--shadow);
+      overflow: hidden;
+      font-size: 13px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .tb { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 12px 0 16px; }
+    .lights { display: flex; gap: 8px; }
+    .lights i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+    .lights i:nth-child(1) { background: #ff5f57; } .lights i:nth-child(2) { background: #febc2e; } .lights i:nth-child(3) { background: #28c840; }
+    .tb .title { font-weight: 700; font-size: 15px; margin-left: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tb .tools, .tb .seg { flex: none; }
+    @media (max-width: 480px) {
+      .mbar .left span, .mbar .left b { display: none; }
+      .tb .title { font-size: 13px; margin-left: 2px; }
+      .tb .seg span { padding: 3px 7px; }
+      .scard { gap: 10px; padding: 0 12px; }
+    }
+    .tb .tools {
+      margin-left: auto; display: flex; gap: 2px; padding: 4px;
+      border-radius: 999px; background: var(--mac-glass);
+      box-shadow: 0 0 0 .5px var(--mac-card-edge), 0 2px 8px rgba(0, 0, 0, .08);
+    }
+    .tb .tools span { width: 30px; height: 26px; display: grid; place-items: center; border-radius: 999px; }
+    .tb .seg {
+      margin-left: auto; display: flex; padding: 3px; border-radius: 999px; background: var(--mac-glass);
+      box-shadow: 0 0 0 .5px var(--mac-card-edge);
+      font-size: 12px;
+    }
+    .tb .seg span { padding: 3px 11px; border-radius: 999px; }
+    .tb .seg .on { background: var(--mac-card); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); font-weight: 600; }
+    .cards { display: flex; flex-direction: column; gap: 10px; padding: 8px 16px 18px; }
+    .scard {
+      display: flex; align-items: center; gap: 14px;
+      height: 56px; padding: 0 16px;
+      border-radius: 14px;
+      background: var(--mac-card);
+      border: 1px solid var(--mac-card-edge);
+    }
+    .scard.on { border-color: color-mix(in srgb, var(--mac-hl) 35%, transparent); }
+    .scard .glyph { width: 30px; display: grid; place-items: center; flex: none; }
+    .scard .nm { flex: 1; min-width: 0; }
+    .scard .nm b { display: block; font-size: 13.5px; }
+    .scard .nm small { display: block; font-size: 11px; color: var(--mac-tert); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .scard.off .nm b { color: var(--mac-tert); }
+    .cap { font-size: 11px; padding: 3px 8px; border-radius: 999px; flex: none; }
+    .cap.g { color: var(--mac-green); background: color-mix(in srgb, var(--mac-green) 18%, transparent); }
+    .cap.o { color: var(--mac-orange); background: color-mix(in srgb, var(--mac-orange) 18%, transparent); }
+    .sw { width: 32px; height: 18px; border-radius: 999px; background: var(--mac-hl); position: relative; flex: none; }
+    .sw::after { content: ""; position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .3); }
+    .sw.off { background: rgba(120, 120, 128, .32); }
+    .sw.off::after { right: auto; left: 2px; }
+    .log { padding: 4px 16px 18px; font: 11.5px/1.75 ui-monospace, "SF Mono", Menlo, Consolas, monospace; overflow: hidden; }
+    .log div { display: flex; gap: 12px; white-space: nowrap; }
+    .log .t { color: var(--mac-tert); flex: none; }
+    .log .m { overflow: hidden; text-overflow: ellipsis; }
+    .log .w { color: var(--mac-orange); } .log .e { color: var(--mac-red); }
+    .note { color: var(--muted); font-size: 13px; text-align: center; margin: 22px 0 0; }
 
     /* Secciones */
     .section { padding: 72px 0; border-top: 1px solid var(--border); }
@@ -252,6 +364,7 @@
       <a class="brand" href="#"><img src="favicon.png" alt="">Connecter</a>
       <ul>
         <li><a href="#funciones">Funciones</a></li>
+        <li><a href="#capturas">Capturas</a></li>
         <li><a href="#como-funciona">Cómo funciona</a></li>
         <li><a href="#privacidad">Privacidad</a></li>
         <li><a href="#preguntas">Preguntas</a></li>
@@ -273,34 +386,24 @@
         <p class="req">Requiere macOS 26 Tahoe o posterior</p>
       </div>
 
-      <div class="mock" aria-hidden="true">
-        <div class="menubar">
-          <span class="active">
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="2" width="16" height="10" rx="2" fill="#fff"/><path d="M1 4.5V3a1 1 0 0 1 1-1h4l1.5 1.5" stroke="#fff" stroke-width="1.5"/></svg>
-          </span>
-          <span>Wi‑Fi</span>
-          <span>mar 30 sept 21:50</span>
+      <div class="desk sysfont" role="img" aria-label="Menú de Connecter en la barra de menús de macOS: 2 de 3 recursos montados">
+        <div class="mbar">
+          <span class="left"><svg width="13" height="15" viewBox="0 0 17 20" fill="#fff"><path d="M14.1 10.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9C3.6 4.7 1.9 5.8.9 7.4c-1.9 3.3-.5 8.2 1.4 10.9.9 1.3 2 2.8 3.4 2.7 1.4-.1 1.9-.9 3.5-.9s2.1.9 3.5.9c1.5 0 2.4-1.3 3.3-2.7 1-1.5 1.5-3 1.5-3.1-.1 0-2.9-1.1-3.4-4.6zM11.5 2.9C12.2 2 12.7.8 12.6-.4c-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.2.1 2.3-.6 3-1.5z"/></svg><b>Finder</b><span>Archivo</span><span>Edición</span></span>
+          <span class="sel"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"><path d="M1.6 3.2c0-.9.7-1.6 1.6-1.6h3.6l1.6 1.8h7.2c.9 0 1.6.7 1.6 1.6v7.4c0 .9-.7 1.6-1.6 1.6H3.2c-.9 0-1.6-.7-1.6-1.6z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round" mask="url(#hole)"/><mask id="hole"><rect width="20" height="16" fill="#fff"/><circle cx="16.5" cy="12.5" r="5" fill="#000"/></mask><circle cx="16.5" cy="12.5" r="3.5" fill="#ff9f0a"/></svg></span>
+          <span><svg width="17" height="13" viewBox="0 0 17 13" fill="#fff"><path d="M8.5 12.5 11 9.6a3.6 3.6 0 0 0-5 0zM3.8 7.4l1.4 1.5a4.7 4.7 0 0 1 6.6 0l1.4-1.5a6.8 6.8 0 0 0-9.4 0zM1.4 4.9l1.4 1.5a8 8 0 0 1 11.4 0l1.4-1.5a10 10 0 0 0-14.2 0zM0 2.3.2 2.5a12 12 0 0 1 16.6 0l.2-.2A12.3 12.3 0 0 0 0 2.3z"/></svg></span>
+          <span>mar 30 sept&nbsp;&nbsp;9:41</span>
         </div>
-        <div class="panel">
-          <div class="head">Connecter <small>3 carpetas</small></div>
-          <div class="share">
-            <span class="dot" style="background:var(--ok)"></span>
-            <span class="name">Documentos<small>smb://nas.local/documentos</small></span>
-            <span class="st">Montada</span>
-          </div>
-          <div class="share">
-            <span class="dot" style="background:var(--ok)"></span>
-            <span class="name">Fotos<small>smb://nas.local/fotos</small></span>
-            <span class="st">Montada</span>
-          </div>
-          <div class="share">
-            <span class="dot" style="background:var(--warn)"></span>
-            <span class="name">Copias<small>smb://servidor/copias</small></span>
-            <span class="st">Reintentando…</span>
-          </div>
-          <hr>
-          <div class="item">Registro de actividad…</div>
-          <div class="item">Ajustes…</div>
+        <div class="nsmenu">
+          <div class="mi dis"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M7 1a6 6 0 0 0 0 12z" fill="currentColor"/></svg>2 de 3 montados</div>
+          <div class="msep"></div>
+          <div class="mi"><span class="d o"></span>Copias — Conectando…</div>
+          <div class="mi hl"><span class="d g"></span>Documentos</div>
+          <div class="mi"><span class="d g"></span>Fotos</div>
+          <div class="mi"><span class="d i"></span>Música</div>
+          <div class="msep"></div>
+          <div class="mi">Abrir Connecter…<span class="kb">⌘O</span></div>
+          <div class="msep"></div>
+          <div class="mi">Salir<span class="kb">⌘Q</span></div>
         </div>
       </div>
     </section>
@@ -340,6 +443,72 @@
           <p>Hecha en SwiftUI, sin dependencias externas y dentro del App Sandbox.</p>
         </div>
       </div>
+    </section>
+
+    <section class="section" id="capturas">
+      <h2>Así se ve en tu Mac.</h2>
+      <p class="lead">Una ventana para gestionar tus recursos y un registro para saber qué ha pasado en cada momento.</p>
+      <div class="shots sysfont">
+        <figure>
+          <div class="win" role="img" aria-label="Ventana principal de Connecter con cuatro recursos SMB">
+            <div class="tb">
+              <span class="lights"><i></i><i></i><i></i></span>
+              <span class="title">Connecter</span>
+              <span class="tools">
+                <span><svg width="13" height="13" viewBox="0 0 13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6.5 1.5v10M1.5 6.5h10"/></svg></span>
+                <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 7a5 5 0 1 1-1.6-3.7"/><path d="M11 1v3H8"/></svg></span>
+                <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+                <span><svg width="15" height="13" viewBox="0 0 15 13" fill="none" stroke="currentColor" stroke-width="1.4"><rect x=".7" y=".7" width="13.6" height="11.6" rx="2.2"/><path d="M4 4.2h7M4 6.5h7M4 8.8h7" stroke-linecap="round"/></svg></span>
+              </span>
+            </div>
+            <div class="cards">
+              <div class="scard">
+                <span class="glyph"><svg width="20" height="16" viewBox="0 0 20 16" fill="none" stroke="var(--mac-orange)" stroke-width="1.6" stroke-linejoin="round"><path d="M1.5 3c0-.8.7-1.5 1.5-1.5h4l1.8 2H17c.8 0 1.5.7 1.5 1.5v8c0 .8-.7 1.5-1.5 1.5H3c-.8 0-1.5-.7-1.5-1.5z"/></svg></span>
+                <span class="nm"><b>Copias</b><small>smb://servidor.local/copias</small></span>
+                <span class="cap o">Conectando…</span><span class="sw"></span>
+              </div>
+              <div class="scard on">
+                <span class="glyph"><svg width="20" height="16" viewBox="0 0 20 16" fill="var(--mac-green)"><path d="M1.5 3c0-.8.7-1.5 1.5-1.5h4l1.8 2H17c.8 0 1.5.7 1.5 1.5v8c0 .8-.7 1.5-1.5 1.5H3c-.8 0-1.5-.7-1.5-1.5z"/></svg></span>
+                <span class="nm"><b>Documentos</b><small>smb://nas.local/documentos</small></span>
+                <span class="cap g">Montado</span><span class="sw"></span>
+              </div>
+              <div class="scard on">
+                <span class="glyph"><svg width="20" height="16" viewBox="0 0 20 16" fill="var(--mac-green)"><path d="M1.5 3c0-.8.7-1.5 1.5-1.5h4l1.8 2H17c.8 0 1.5.7 1.5 1.5v8c0 .8-.7 1.5-1.5 1.5H3c-.8 0-1.5-.7-1.5-1.5z"/></svg></span>
+                <span class="nm"><b>Fotos</b><small>smb://nas.local/fotos</small></span>
+                <span class="cap g">Montado</span><span class="sw"></span>
+              </div>
+              <div class="scard off">
+                <span class="glyph"><svg width="20" height="16" viewBox="0 0 20 16" fill="none" stroke="var(--mac-tert)" stroke-width="1.6" stroke-linejoin="round"><path d="M1.5 3c0-.8.7-1.5 1.5-1.5h4l1.8 2H17c.8 0 1.5.7 1.5 1.5v8c0 .8-.7 1.5-1.5 1.5H3c-.8 0-1.5-.7-1.5-1.5z"/></svg></span>
+                <span class="nm"><b>Música</b><small>smb://nas.local/musica</small></span>
+                <span class="sw off"></span>
+              </div>
+            </div>
+          </div>
+          <figcaption>Ventana principal: estado de cada recurso y un interruptor para activarlo o desactivarlo.</figcaption>
+        </figure>
+        <figure>
+          <div class="win" role="img" aria-label="Ventana Registro de actividad de Connecter" style="max-width:560px">
+            <div class="tb">
+              <span class="lights"><i></i><i></i><i></i></span>
+              <span class="title">Registro de actividad</span>
+              <span class="seg"><span class="on">Todo</span><span>Avisos</span><span>Errores</span></span>
+            </div>
+            <div class="log">
+              <div><span class="t">09:41:07.412</span><span class="m">[Copias] Not mounted, attempting to mount…</span></div>
+              <div><span class="t">09:41:04.380</span><span class="m">Network available — re-checking shares in 3 s</span></div>
+              <div class="w"><span class="t">09:40:51.022</span><span class="m">Network unavailable — mount checks paused</span></div>
+              <div class="e"><span class="t">09:32:18.907</span><span class="m">[Copias] ❌ Mount failed (1×) — Mount failed: Host is down</span></div>
+              <div><span class="t">09:30:02.655</span><span class="m">[Fotos] ✅ Mounted successfully</span></div>
+              <div><span class="t">09:30:02.148</span><span class="m">[Documentos] ✅ Mounted successfully</span></div>
+              <div><span class="t">09:30:01.207</span><span class="m">[Documentos] Not mounted, attempting to mount…</span></div>
+              <div><span class="t">09:30:00.994</span><span class="m">Monitor started (3 task(s), interval: 30s)</span></div>
+              <div><span class="t">09:30:00.981</span><span class="m">MountManager started (App Sandbox)</span></div>
+            </div>
+          </div>
+          <figcaption>Registro de actividad filtrable: montajes, cortes de red y errores con marca de tiempo.</figcaption>
+        </figure>
+      </div>
+      <p class="note">Recreaciones de la interfaz de Connecter.</p>
     </section>
 
     <section class="section" id="como-funciona">
