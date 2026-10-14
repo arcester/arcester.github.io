@@ -7,6 +7,10 @@ import json
 import re
 from pathlib import Path
 
+# Dirección pública de la landing. Al pasar a connecter.app basta con cambiar esta línea
+# y volver a generar: canonical, hreflang y og:* se actualizan solos.
+SITE = 'https://arcester.github.io/connecter/'
+
 HERE = Path(__file__).parent
 REPO = HERE.parent.parent
 
@@ -14,6 +18,8 @@ template = (HERE / 'template.html').read_text(encoding='utf-8')
 strings = json.loads((HERE / 'i18n.json').read_text(encoding='utf-8'))
 
 for lang, s in strings.items():
+    s = {**s, 'site': SITE, 'url': SITE + s['path']}
+
     def sub(m):
         key = m.group(1)
         if key not in s:
