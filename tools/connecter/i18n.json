@@ -17,7 +17,6 @@
     "nav_privacy": "Privacy",
     "nav_faq": "FAQ",
     "nav_support": "Support",
-
     "hook": "One less worry.",
     "h1": "Your network drives, <span>always connected</span>.",
     "tagline": "Connecter lives in your Mac’s menu bar and mounts your SMB shares for you: at login, after sleep and every time the network changes.",
@@ -25,7 +24,6 @@
     "btn_features": "See features",
     "req": "Requires macOS 26 Tahoe or later",
     "scroll": "Scroll",
-
     "d_menus": "<b>Finder</b><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span>",
     "d_clock": "Mon Oct 12&nbsp;&nbsp;9:41",
     "d_summary": "1 of 1 mounted",
@@ -35,12 +33,10 @@
     "n_body": "“video” is available in /Volumes/",
     "n_now": "now",
     "stage_label": "Animation: Connecter mounts the “video” share from the menu bar and macOS shows it on the desktop.",
-
     "win_h2": "Every share, at a glance.",
     "win_p": "One compact window shows what is mounted and what is not. One switch turns each share on or off.",
     "win_alt": "Connecter main window with nine SMB shares, two of them mounted",
     "menu_alt": "Connecter menu in the menu bar: 2 of 2 mounted, with a green dot next to each mounted share",
-
     "feat_h2": "Everything you need. Nothing you don’t.",
     "feat_lead": "Connecter makes sure your network folders are where you expect them, without ever opening “Connect to Server” again.",
     "f1_t": "Automatic mounting",
@@ -55,7 +51,6 @@
     "f5_p": "A filterable history of mounts, disconnections and errors.",
     "f6_t": "Native and lightweight",
     "f6_p": "Built with SwiftUI, with no third-party dependencies, inside the App Sandbox.",
-
     "shots_h2": "Right at home on your Mac.",
     "shots_lead": "Native to macOS Tahoe. Everything is configured from one simple settings window.",
     "s_mon_alt": "Monitoring settings: check interval, disable after failures, and notifications",
@@ -64,7 +59,6 @@
     "s_gen_cap": "It starts at login and can stay out of the way in the menu bar.",
     "s_key_alt": "Keychain settings: list of shares saved in the macOS Keychain",
     "s_key_cap": "Every share is backed up in the Keychain, so you can rebuild the list if you ever lose it.",
-
     "how_h2": "Set it up once. Forget about it.",
     "how_lead": "Three steps and your network drives stop being a problem.",
     "h1_t": "Add your shares",
@@ -73,14 +67,12 @@
     "h2_p": "Your username and password stay protected in the macOS Keychain.",
     "h3_t": "Leave it in the menu bar",
     "h3_p": "Connecter mounts, watches and reconnects in the background. It only bothers you if something goes wrong.",
-
     "priv_h2": "Privacy",
     "priv_lead": "Connecter works on your Mac and with your network. Your data stays yours.",
     "p1": "<strong>No data collection.</strong> Connecter does not collect, send or share any personal or usage data with the developer or with third parties.",
     "p2": "<strong>Credentials in the Keychain.</strong> Passwords are stored exclusively in the macOS Keychain and are never written to disk in plain text.",
     "p3": "<strong>Local data.</strong> Settings and the activity log are kept only on your Mac, and uninstalling the app removes them.",
     "p4": "<strong>App Sandbox.</strong> The app runs isolated inside the macOS App Sandbox, with access only to what it needs.",
-
     "faq_h2": "Frequently asked questions",
     "faq_lead": "What people usually ask before installing it.",
     "q1": "What kind of shares does it support?",
@@ -93,10 +85,8 @@
     "a4": "Only in the macOS Keychain, the same system macOS itself uses for your passwords.",
     "q5": "When will it be available?",
     "a5": "Connecter is coming soon to the Mac App Store. This page will be updated with the download link.",
-
     "sup_h2": "Support",
-    "sup_p": "Something not working as expected, or have a suggestion? Get in touch through <a href=\"https://arcesaez.com/\">arcesaez.com</a> and, if you can, include your macOS version and the relevant activity log entries.",
-
+    "sup_p": "Found a bug? <a href=\"https://github.com/arcester/connecter-feedback/issues/new/choose\">Report it on GitHub</a>. Have an idea? <a href=\"https://github.com/arcester/connecter-feedback/discussions/categories/ideas\">Suggest it or vote for others’ ideas</a>. For anything else, get in touch through <a href=\"https://arcesaez.com/\">arcesaez.com</a>.",
     "cta_h2": "One less worry.",
     "cta_p": "Stop reconnecting by hand. Connecter is coming soon to the Mac App Store.",
     "cta_btn": "Coming soon",
@@ -120,7 +110,6 @@
     "nav_privacy": "Privacidad",
     "nav_faq": "Preguntas",
     "nav_support": "Soporte",
-
     "hook": "Una preocupación menos.",
     "h1": "Tus unidades de red, <span>siempre conectadas</span>.",
     "tagline": "Connecter vive en la barra de menús de tu Mac y monta tus carpetas compartidas SMB por ti: al arrancar, tras el reposo y cada vez que cambia la red.",
@@ -128,7 +117,6 @@
     "btn_features": "Ver funciones",
     "req": "Requiere macOS 26 Tahoe o posterior",
     "scroll": "Desliza",
-
     "d_menus": "<b>Finder</b><span>Archivo</span><span>Edición</span><span>Visualización</span><span>Ir</span><span>Ventana</span><span>Ayuda</span>",
     "d_clock": "lun 12 oct&nbsp;&nbsp;9:41",
     "d_summary": "1 de 1 montados",
@@ -138,12 +126,10 @@
     "n_body": "«video» está disponible en /Volumes/",
     "n_now": "ahora",
     "stage_label": "Animación: Connecter monta el recurso «video» desde la barra de menús y macOS lo muestra en el escritorio.",
-
     "win_h2": "Todos tus recursos, de un vistazo.",
     "win_p": "Una ventana compacta te dice qué está montado y qué no. Un interruptor activa o desactiva cada recurso.",
     "win_alt": "Ventana principal de Connecter con nueve recursos SMB, dos de ellos montados",
     "menu_alt": "Menú de Connecter en la barra de menús: 2 de 2 montados, con un punto verde junto a cada recurso montado",
-
     "feat_h2": "Todo lo que necesitas, nada que no.",
     "feat_lead": "Connecter se encarga de que tus carpetas de red estén donde las esperas, sin que tengas que volver a abrir «Conectarse al servidor».",
     "f1_t": "Montaje automático",
@@ -158,7 +144,6 @@
     "f5_p": "Historial filtrable de montajes, desconexiones y errores.",
     "f6_t": "Nativa y ligera",
     "f6_p": "Hecha en SwiftUI, sin dependencias externas y dentro del App Sandbox.",
-
     "shots_h2": "Así se ve en tu Mac.",
     "shots_lead": "Nativa de macOS Tahoe. Todo se ajusta desde una ventana de ajustes sencilla.",
     "s_mon_alt": "Ajustes de monitorización: intervalo de comprobación, desactivación tras fallos y notificaciones",
@@ -167,7 +152,6 @@
     "s_gen_cap": "Se abre sola al iniciar sesión y puede quedarse solo en la barra de menús.",
     "s_key_alt": "Ajustes del Llavero: lista de recursos guardados en el llavero de macOS",
     "s_key_cap": "Cada recurso queda guardado en el Llavero, así que puedes reconstruir la lista si la pierdes.",
-
     "how_h2": "Configúralo una vez. Olvídate.",
     "how_lead": "Tres pasos y tus unidades de red dejan de ser un problema.",
     "h1_t": "Añade tus carpetas",
@@ -176,14 +160,12 @@
     "h2_p": "Usuario y contraseña quedan protegidos en el Llavero de macOS.",
     "h3_t": "Déjalo en la barra de menús",
     "h3_p": "Connecter monta, vigila y reconecta en segundo plano. Solo te avisa si algo falla.",
-
     "priv_h2": "Privacidad",
     "priv_lead": "Connecter trabaja en tu Mac y con tu red. Tus datos son tuyos.",
     "p1": "<strong>Sin recogida de datos.</strong> Connecter no recopila, no envía ni comparte información personal ni de uso con el desarrollador ni con terceros.",
     "p2": "<strong>Credenciales en el Llavero.</strong> Las contraseñas se almacenan exclusivamente en el Llavero de macOS; nunca se escriben en disco en texto plano.",
     "p3": "<strong>Datos locales.</strong> La configuración y el registro de actividad se guardan solo en tu Mac y puedes borrarlos desinstalando la aplicación.",
     "p4": "<strong>App Sandbox.</strong> La aplicación se ejecuta aislada dentro del App Sandbox de macOS, con acceso únicamente a lo que necesita.",
-
     "faq_h2": "Preguntas frecuentes",
     "faq_lead": "Lo que suele preguntarse antes de instalarla.",
     "q1": "¿Qué tipo de carpetas compartidas admite?",
@@ -196,10 +178,8 @@
     "a4": "Únicamente en el Llavero de macOS, el mismo sistema que usa el propio sistema operativo para tus contraseñas.",
     "q5": "¿Cuándo estará disponible?",
     "a5": "Connecter llegará próximamente al Mac App Store. Esta página se actualizará con el enlace de descarga.",
-
     "sup_h2": "Soporte",
-    "sup_p": "¿Algo no funciona como esperabas o tienes una sugerencia? Escríbeme a través de <a href=\"https://arcesaez.com/\">arcesaez.com</a> e incluye, si puedes, tu versión de macOS y las entradas relevantes del registro de actividad.",
-
+    "sup_p": "¿Has encontrado un fallo? <a href=\"https://github.com/arcester/connecter-feedback/issues/new/choose\">Infórmalo en GitHub</a>. ¿Tienes una idea? <a href=\"https://github.com/arcester/connecter-feedback/discussions/categories/ideas\">Propónla o vota las de otros</a>. Para cualquier otra cosa, escríbeme a través de <a href=\"https://arcesaez.com/\">arcesaez.com</a>.",
     "cta_h2": "Una preocupación menos.",
     "cta_p": "Deja de reconectar a mano. Connecter llegará pronto al Mac App Store.",
     "cta_btn": "Próximamente",
