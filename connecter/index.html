@@ -248,14 +248,15 @@
     .rw-copy { text-align: center; max-width: 34em; }
     .rw-copy h2 { font-size: clamp(30px, 4.6vw, 48px); letter-spacing: -.025em; line-height: 1.1; margin: 0 0 10px; }
     .rw-copy p { color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); margin: 0; }
-    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 783)); transform-origin: 50% 100%; will-change: transform; }
+    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 687)); transform-origin: 50% 100%; will-change: transform; }
     .rw-frame > img:first-child { display: block; width: 100%; height: auto; }
     .rw-menu {
-      position: absolute; top: 6%; right: -40%; width: 46%; height: auto;
+      /* --mw: the menu's width in points; drawn at the window's scale (552 points wide), sticking out on the right */
+      position: absolute; top: 6%; right: calc(12% - var(--mw) / 552 * 100%); width: calc(var(--mw) / 552 * 100%); height: auto;
       border-radius: 13px; box-shadow: 0 24px 50px rgba(0, 0, 0, .35);
       will-change: transform;
     }
-    @media (max-width: 760px) { .rw-menu { right: -10%; top: 34%; width: 42%; } }
+    @media (max-width: 760px) { .rw-menu { right: -10%; top: 30%; width: calc(var(--mw) / 552 * 92%); } }
 
     /* ---------- Contenido ---------- */
     .section { padding: 88px 0; border-top: 1px solid var(--border); }
@@ -277,9 +278,17 @@
       display: grid; place-items: center;
       background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-weight: 700; font-size: 14px;
     }
+    /* Light / dark screenshots; only with JavaScript, which swaps them */
+    .scheme { display: none; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); }
+    .js .scheme { display: inline-flex; }
+    .rw-copy .scheme { margin-top: 18px; }
+    .section .scheme { margin: -16px 0 32px; }
+    .scheme button { font: inherit; font-size: 14px; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .scheme button[aria-checked="true"] { background: var(--accent); color: #fff; }
+    .scheme button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 32px; align-items: center; }
     .shots figure { margin: 0; min-width: 0; }
-    .shots .wide { grid-column: 1 / -1; max-width: 560px; margin: 0 auto; }
+    .shots .wide { grid-column: 1 / -1; max-width: 660px; margin: 0 auto; }
     .shots img { display: block; width: 100%; height: auto; }
     .shots figcaption { color: var(--muted); font-size: 15px; margin-top: 4px; text-align: center; padding: 0 8px; }
     @media (max-width: 760px) { .shots { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
@@ -360,7 +369,7 @@
         <span class="btn btn-primary">Coming soon to the Mac App Store</span>
         <a class="btn btn-ghost" href="#features">See features</a>
       </div>
-      <p class="req">Requires macOS 26 Tahoe or later</p>
+      <p class="req">Requires macOS 26 Tahoe or later · 8 languages</p>
     </div>
 
     <div class="stage" id="stage" role="img" aria-label="Animation: Connecter mounts the “video” share from the menu bar and macOS shows it on the desktop.">
@@ -417,11 +426,12 @@
     <div class="sticky">
       <div class="rw-copy" id="rwCopy">
         <h2>Every share, at a glance.</h2>
-        <p>One compact window shows what is mounted and what is not. One switch turns each share on or off.</p>
+        <p>One compact window, grouped by server, shows what is mounted and what is not. One switch turns each share on or off, and you can pause a whole server.</p>
+        <div class="scheme" role="radiogroup" aria-label="App appearance in the screenshots"><button type="button" role="radio" data-mode="system" aria-checked="true">System</button><button type="button" role="radio" data-mode="light" aria-checked="false">Light</button><button type="button" role="radio" data-mode="dark" aria-checked="false">Dark</button></div>
       </div>
       <div class="rw-frame" id="rwFrame">
-        <img src="img/ventana.webp" width="552" height="783" alt="Connecter main window with nine SMB shares, two of them mounted">
-        <img class="rw-menu" id="rwMenu" src="img/menu.webp" width="186" height="334" alt="Connecter menu in the menu bar: 2 of 2 mounted, with a green dot next to each mounted share">
+        <img src="img/window.webp" width="552" height="687" alt="Connecter main window with eight SMB shares grouped by server: three mounted, two on an unreachable server and one on a paused server" data-scheme>
+        <img class="rw-menu" id="rwMenu" src="img/menu-en.webp" width="304" height="471" style="--mw: 304" alt="Connecter menu in the menu bar: 3 of 5 mounted, one section per server and a green dot next to each mounted share" data-scheme>
       </div>
     </div>
   </section>
@@ -443,17 +453,18 @@
     <section class="section" id="screenshots">
       <h2 class="rv">Right at home on your Mac.</h2>
       <p class="lead rv">Native to macOS Tahoe. Everything is configured from one simple settings window.</p>
+      <div class="scheme" role="radiogroup" aria-label="App appearance in the screenshots"><button type="button" role="radio" data-mode="system" aria-checked="true">System</button><button type="button" role="radio" data-mode="light" aria-checked="false">Light</button><button type="button" role="radio" data-mode="dark" aria-checked="false">Dark</button></div>
       <div class="shots">
         <figure class="rv" style="--i:0">
-          <img src="img/ajustes-general.webp" width="552" height="391" loading="lazy" alt="General settings: launch at login and show on launch">
+          <img src="img/settings-general.webp" width="652" height="391" loading="lazy" alt="General settings: launch at login and show on launch" data-scheme>
           <figcaption>It starts at login and can stay out of the way in the menu bar.</figcaption>
         </figure>
         <figure class="rv" style="--i:1">
-          <img src="img/ajustes-monitorizacion.webp" width="552" height="415" loading="lazy" alt="Monitoring settings: check interval, disable after failures, and notifications">
+          <img src="img/settings-monitoring.webp" width="652" height="382" loading="lazy" alt="Monitoring settings: check interval, disable after failures, and notifications" data-scheme>
           <figcaption>You decide how often it checks, when it gives up and whether it notifies you.</figcaption>
         </figure>
         <figure class="wide rv">
-          <img src="img/llavero.webp" width="552" height="581" loading="lazy" alt="Keychain settings: list of shares saved in the macOS Keychain">
+          <img src="img/keychain.webp" width="652" height="568" loading="lazy" alt="Keychain settings: list of shares saved in the macOS Keychain" data-scheme>
           <figcaption>Every share is backed up in the Keychain, so you can rebuild the list if you ever lose it.</figcaption>
         </figure>
       </div>
@@ -490,6 +501,7 @@
       <p class="lead rv">What people usually ask before installing it.</p>
       <details class="rv"><summary>What kind of shares does it support?</summary><p>Shares over SMB, the protocol used by most NAS devices (Synology, QNAP…), Windows servers and other Macs.</p></details>
       <details class="rv"><summary>Which version of macOS do I need?</summary><p>macOS 26 Tahoe or later.</p></details>
+      <details class="rv"><summary>Which languages is it available in?</summary><p>English, Spanish, German, French, Italian, Brazilian Portuguese, Japanese and Simplified Chinese. Connecter uses your Mac’s language.</p></details>
       <details class="rv"><summary>What happens if I close the lid or switch Wi‑Fi networks?</summary><p>When your Mac wakes up or the network changes, Connecter mounts your shares again automatically. If there’s no connection, it pauses until the network comes back.</p></details>
       <details class="rv"><summary>Where are my passwords stored?</summary><p>Only in the macOS Keychain, the same system macOS itself uses for your passwords.</p></details>
       <details class="rv"><summary>When will it be available?</summary><p>Connecter is coming soon to the Mac App Store. This page will be updated with the download link.</p></details>
@@ -615,6 +627,26 @@
       if (!ticking) { ticking = true; requestAnimationFrame(() => { onScroll(); ticking = false; }); }
     }, { passive: true });
     addEventListener('resize', () => { fit(); onScroll(); });
+    // Screenshots in light or dark: "System" follows the visitor's appearance; the dark
+    // image is in the markup and the light one sits next to it as <name>-light.webp
+    const shots = [...document.querySelectorAll('img[data-scheme]')];
+    shots.forEach((i) => { i.dataset.dark = i.getAttribute('src'); });
+    const sysDark = matchMedia('(prefers-color-scheme: dark)');
+    let scheme = 'system';
+    try { scheme = localStorage.getItem('connecter-scheme') || 'system'; } catch (e) {}
+    const applyScheme = () => {
+      const dark = scheme === 'dark' || (scheme === 'system' && sysDark.matches);
+      shots.forEach((i) => { i.src = dark ? i.dataset.dark : i.dataset.dark.replace('.webp', '-light.webp'); });
+      document.querySelectorAll('.scheme button').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.mode === scheme)));
+    };
+    document.querySelectorAll('.scheme button').forEach((b) => b.addEventListener('click', () => {
+      scheme = b.dataset.mode;
+      try { localStorage.setItem('connecter-scheme', scheme); } catch (e) {}
+      applyScheme();
+    }));
+    sysDark.addEventListener('change', applyScheme);
+    applyScheme();
+
     fit(); placeMenu(); onScroll();
     if (reduce) finalState(); else loop();
   })();

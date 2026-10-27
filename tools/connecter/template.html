@@ -248,14 +248,15 @@
     .rw-copy { text-align: center; max-width: 34em; }
     .rw-copy h2 { font-size: clamp(30px, 4.6vw, 48px); letter-spacing: -.025em; line-height: 1.1; margin: 0 0 10px; }
     .rw-copy p { color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); margin: 0; }
-    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 783)); transform-origin: 50% 100%; will-change: transform; }
+    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 687)); transform-origin: 50% 100%; will-change: transform; }
     .rw-frame > img:first-child { display: block; width: 100%; height: auto; }
     .rw-menu {
-      position: absolute; top: 6%; right: -40%; width: 46%; height: auto;
+      /* --mw: the menu's width in points; drawn at the window's scale (552 points wide), sticking out on the right */
+      position: absolute; top: 6%; right: calc(12% - var(--mw) / 552 * 100%); width: calc(var(--mw) / 552 * 100%); height: auto;
       border-radius: 13px; box-shadow: 0 24px 50px rgba(0, 0, 0, .35);
       will-change: transform;
     }
-    @media (max-width: 760px) { .rw-menu { right: -10%; top: 34%; width: 42%; } }
+    @media (max-width: 760px) { .rw-menu { right: -10%; top: 30%; width: calc(var(--mw) / 552 * 92%); } }
 
     /* ---------- Contenido ---------- */
     .section { padding: 88px 0; border-top: 1px solid var(--border); }
@@ -277,9 +278,17 @@
       display: grid; place-items: center;
       background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-weight: 700; font-size: 14px;
     }
+    /* Light / dark screenshots; only with JavaScript, which swaps them */
+    .scheme { display: none; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); }
+    .js .scheme { display: inline-flex; }
+    .rw-copy .scheme { margin-top: 18px; }
+    .section .scheme { margin: -16px 0 32px; }
+    .scheme button { font: inherit; font-size: 14px; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .scheme button[aria-checked="true"] { background: var(--accent); color: #fff; }
+    .scheme button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 32px; align-items: center; }
     .shots figure { margin: 0; min-width: 0; }
-    .shots .wide { grid-column: 1 / -1; max-width: 560px; margin: 0 auto; }
+    .shots .wide { grid-column: 1 / -1; max-width: 660px; margin: 0 auto; }
     .shots img { display: block; width: 100%; height: auto; }
     .shots figcaption { color: var(--muted); font-size: 15px; margin-top: 4px; text-align: center; padding: 0 8px; }
     @media (max-width: 760px) { .shots { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
@@ -418,10 +427,11 @@
       <div class="rw-copy" id="rwCopy">
         <h2>{{win_h2}}</h2>
         <p>{{win_p}}</p>
+        {{scheme}}
       </div>
       <div class="rw-frame" id="rwFrame">
-        <img src="{{root}}img/ventana.webp" width="552" height="783" alt="{{win_alt}}">
-        <img class="rw-menu" id="rwMenu" src="{{root}}img/menu.webp" width="186" height="334" alt="{{menu_alt}}">
+        <img src="{{root}}img/{{img_win}}.webp" width="552" height="687" alt="{{win_alt}}" data-scheme>
+        <img class="rw-menu" id="rwMenu" src="{{root}}img/{{img_menu}}.webp" width="{{menu_w}}" height="471" style="--mw: {{menu_w}}" alt="{{menu_alt}}" data-scheme>
       </div>
     </div>
   </section>
@@ -443,17 +453,18 @@
     <section class="section" id="screenshots">
       <h2 class="rv">{{shots_h2}}</h2>
       <p class="lead rv">{{shots_lead}}</p>
+      {{scheme}}
       <div class="shots">
         <figure class="rv" style="--i:0">
-          <img src="{{root}}img/ajustes-general.webp" width="552" height="391" loading="lazy" alt="{{s_gen_alt}}">
+          <img src="{{root}}img/{{img_gen}}.webp" width="652" height="391" loading="lazy" alt="{{s_gen_alt}}" data-scheme>
           <figcaption>{{s_gen_cap}}</figcaption>
         </figure>
         <figure class="rv" style="--i:1">
-          <img src="{{root}}img/ajustes-monitorizacion.webp" width="552" height="415" loading="lazy" alt="{{s_mon_alt}}">
+          <img src="{{root}}img/{{img_mon}}.webp" width="652" height="382" loading="lazy" alt="{{s_mon_alt}}" data-scheme>
           <figcaption>{{s_mon_cap}}</figcaption>
         </figure>
         <figure class="wide rv">
-          <img src="{{root}}img/llavero.webp" width="552" height="581" loading="lazy" alt="{{s_key_alt}}">
+          <img src="{{root}}img/{{img_key}}.webp" width="652" height="568" loading="lazy" alt="{{s_key_alt}}" data-scheme>
           <figcaption>{{s_key_cap}}</figcaption>
         </figure>
       </div>
@@ -490,6 +501,7 @@
       <p class="lead rv">{{faq_lead}}</p>
       <details class="rv"><summary>{{q1}}</summary><p>{{a1}}</p></details>
       <details class="rv"><summary>{{q2}}</summary><p>{{a2}}</p></details>
+      <details class="rv"><summary>{{q_lang}}</summary><p>{{a_lang}}</p></details>
       <details class="rv"><summary>{{q3}}</summary><p>{{a3}}</p></details>
       <details class="rv"><summary>{{q4}}</summary><p>{{a4}}</p></details>
       <details class="rv"><summary>{{q5}}</summary><p>{{a5}}</p></details>
@@ -615,6 +627,26 @@
       if (!ticking) { ticking = true; requestAnimationFrame(() => { onScroll(); ticking = false; }); }
     }, { passive: true });
     addEventListener('resize', () => { fit(); onScroll(); });
+    // Screenshots in light or dark: "System" follows the visitor's appearance; the dark
+    // image is in the markup and the light one sits next to it as <name>-light.webp
+    const shots = [...document.querySelectorAll('img[data-scheme]')];
+    shots.forEach((i) => { i.dataset.dark = i.getAttribute('src'); });
+    const sysDark = matchMedia('(prefers-color-scheme: dark)');
+    let scheme = 'system';
+    try { scheme = localStorage.getItem('connecter-scheme') || 'system'; } catch (e) {}
+    const applyScheme = () => {
+      const dark = scheme === 'dark' || (scheme === 'system' && sysDark.matches);
+      shots.forEach((i) => { i.src = dark ? i.dataset.dark : i.dataset.dark.replace('.webp', '-light.webp'); });
+      document.querySelectorAll('.scheme button').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.mode === scheme)));
+    };
+    document.querySelectorAll('.scheme button').forEach((b) => b.addEventListener('click', () => {
+      scheme = b.dataset.mode;
+      try { localStorage.setItem('connecter-scheme', scheme); } catch (e) {}
+      applyScheme();
+    }));
+    sysDark.addEventListener('change', applyScheme);
+    applyScheme();
+
     fit(); placeMenu(); onScroll();
     if (reduce) finalState(); else loop();
   })();
