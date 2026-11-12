@@ -99,7 +99,8 @@
     "img_key": "keychain",
     "scheme": "<div class=\"scheme\" role=\"radiogroup\" aria-label=\"App appearance in the screenshots\"><button type=\"button\" role=\"radio\" data-mode=\"system\" aria-checked=\"true\">System</button><button type=\"button\" role=\"radio\" data-mode=\"light\" aria-checked=\"false\">Light</button><button type=\"button\" role=\"radio\" data-mode=\"dark\" aria-checked=\"false\">Dark</button></div>",
     "q_lang": "Which languages is it available in?",
-    "a_lang": "English, Spanish, German, French, Italian, Brazilian Portuguese, Japanese and Simplified Chinese. Connecter uses your Mac’s language."
+    "a_lang": "English, Spanish, German, French, Italian, Brazilian Portuguese, Japanese and Simplified Chinese. Connecter uses your Mac’s language.",
+    "btn_hero": "Download"
   },
   "es": {
     "out": "connecter/es/index.html",
@@ -201,6 +202,7 @@
     "img_key": "llavero",
     "scheme": "<div class=\"scheme\" role=\"radiogroup\" aria-label=\"Apariencia de la app en las capturas\"><button type=\"button\" role=\"radio\" data-mode=\"system\" aria-checked=\"true\">Sistema</button><button type=\"button\" role=\"radio\" data-mode=\"light\" aria-checked=\"false\">Claro</button><button type=\"button\" role=\"radio\" data-mode=\"dark\" aria-checked=\"false\">Oscuro</button></div>",
     "q_lang": "¿En qué idiomas está?",
-    "a_lang": "Español, inglés, alemán, francés, italiano, portugués de Brasil, japonés y chino simplificado. Connecter usa el idioma de tu Mac."
+    "a_lang": "Español, inglés, alemán, francés, italiano, portugués de Brasil, japonés y chino simplificado. Connecter usa el idioma de tu Mac.",
+    "btn_hero": "Descargar"
   }
 }
