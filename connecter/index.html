@@ -227,6 +227,34 @@
     .cursor svg { transition: transform .12s; transform-origin: 3px 2px; }
     .no-js .cursor { display: none; }
     .cursor.click svg { transform: scale(.82); }
+    /* Hoja «Nuevo recurso»: elige un volumen que el Finder ya tiene montado */
+    .sheet {
+      position: absolute; left: 270px; top: 92px; width: 430px; padding: 20px 22px 18px;
+      background: rgba(38, 40, 48, .93);
+      backdrop-filter: blur(30px) saturate(160%); -webkit-backdrop-filter: blur(30px) saturate(160%);
+      border-radius: 18px;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .14), 0 30px 60px rgba(0, 0, 0, .5);
+      font-size: 14px; color: #f2f2f5;
+      opacity: 0; transform: scale(.96); transition: opacity .2s, transform .25s;
+      pointer-events: none;
+    }
+    .sheet.show { opacity: 1; transform: none; }
+    .sheet h4 { margin: 0 0 14px; font-size: 19px; }
+    .sheet .lbl { margin: 0 0 6px 4px; font-size: 12px; color: rgba(255, 255, 255, .5); }
+    .sheet .box { margin-bottom: 14px; padding: 8px 12px; border-radius: 12px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); }
+    .pick { display: flex; align-items: center; justify-content: space-between; margin: 0 -8px; padding: 4px 8px; border-radius: 8px; transition: background-color .15s; }
+    .pick.hl { background: rgba(10, 124, 255, .4); }
+    .pick b { display: block; font-size: 15px; }
+    .pick small { font-size: 12px; color: rgba(255, 255, 255, .55); }
+    .fields { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 9px 10px; }
+    .fields > span { text-align: right; color: rgba(255, 255, 255, .55); }
+    .fv { height: 26px; line-height: 26px; padding: 0 8px; border-radius: 6px; background: rgba(0, 0, 0, .25); border: 1px solid rgba(255, 255, 255, .1); color: rgba(255, 255, 255, .32); }
+    .fv.on { color: #fff; }
+    .btns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+    .btns span { padding: 5px 16px; border-radius: 8px; background: rgba(255, 255, 255, .12); }
+    .btns .pri { background: #0a7cff; transition: filter .12s; }
+    .btns .pri.press { filter: brightness(1.25); }
+    .mi.new { display: none; } .mi.new.show { display: flex; }
     .screen.fade > :not(.d-wall):not(.mb) { transition: opacity .6s; opacity: 0; }
 
     @media (max-width: 900px) {
@@ -366,13 +394,13 @@
       <h1>Your network drives, <span>always connected</span>.</h1>
       <p class="tagline">Connecter lives in your Mac’s menu bar and mounts your SMB shares for you: at login, after sleep and every time the network changes.</p>
       <div class="actions">
-        <span class="btn btn-primary">Coming soon to the Mac App Store</span>
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6829888591">Download on the Mac App Store</a>
         <a class="btn btn-ghost" href="#features">See features</a>
       </div>
       <p class="req">Requires macOS 26 Tahoe or later · 8 languages</p>
     </div>
 
-    <div class="stage" id="stage" role="img" aria-label="Animation: Connecter mounts the “video” share from the menu bar and macOS shows it on the desktop.">
+    <div class="stage" id="stage" role="img" aria-label="Animation: Connecter adds the “fotos” share that Finder already has mounted, then mounts the “video” share from the menu bar and macOS shows it on the desktop.">
       <div class="screen" id="screen" aria-hidden="true">
         <div class="d-wall"></div>
         <div class="mb">
@@ -392,21 +420,41 @@
           <svg width="76" height="64" viewBox="0 0 76 64"><defs><linearGradient id="dg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f5f8"/><stop offset="1" stop-color="#b8c1cc"/></linearGradient></defs><rect x="4" y="14" width="68" height="40" rx="7" fill="url(#dg)"/><rect x="4" y="14" width="68" height="40" rx="7" fill="none" stroke="rgba(0,0,0,.18)"/><rect x="12" y="42" width="30" height="3" rx="1.5" fill="#8a96a5"/><circle cx="60" cy="43.5" r="2.4" fill="#30d158"/><circle cx="52" cy="27" r="9" fill="#2f7cf6"/><path d="M43 27h18M52 18c-3.5 3-3.5 15 0 18M52 18c3.5 3 3.5 15 0 18" stroke="#fff" stroke-width="1.3" fill="none"/></svg>
           <span>wd-download</span>
         </div>
-        <div class="vol" id="volNew" style="top: 256px">
+        <div class="vol" style="top: 256px">
+          <svg width="76" height="64" viewBox="0 0 76 64"><rect x="4" y="14" width="68" height="40" rx="7" fill="url(#dg)"/><rect x="4" y="14" width="68" height="40" rx="7" fill="none" stroke="rgba(0,0,0,.18)"/><rect x="12" y="42" width="30" height="3" rx="1.5" fill="#8a96a5"/><circle cx="60" cy="43.5" r="2.4" fill="#30d158"/><circle cx="52" cy="27" r="9" fill="#2f7cf6"/><path d="M43 27h18M52 18c-3.5 3-3.5 15 0 18M52 18c3.5 3 3.5 15 0 18" stroke="#fff" stroke-width="1.3" fill="none"/></svg>
+          <span>fotos</span>
+        </div>
+        <div class="vol" id="volNew" style="top: 372px">
           <svg width="76" height="64" viewBox="0 0 76 64"><rect x="4" y="14" width="68" height="40" rx="7" fill="url(#dg)"/><rect x="4" y="14" width="68" height="40" rx="7" fill="none" stroke="rgba(0,0,0,.18)"/><rect x="12" y="42" width="30" height="3" rx="1.5" fill="#8a96a5"/><circle cx="60" cy="43.5" r="2.4" fill="#30d158"/><circle cx="52" cy="27" r="9" fill="#2f7cf6"/><path d="M43 27h18M52 18c-3.5 3-3.5 15 0 18M52 18c3.5 3 3.5 15 0 18" stroke="#fff" stroke-width="1.3" fill="none"/></svg>
           <span>video</span>
         </div>
 
         <div class="menu" id="menu">
-          <div class="mi dis">1 of 1 mounted</div>
+          <div class="mi dis" id="menuHead" data-after="2 of 2 mounted">1 of 1 mounted</div>
           <div class="msep"></div>
           <div class="mi"><span class="d i"></span>archivo</div>
+          <div class="mi new" id="rowFotos"><span class="d g"></span>fotos</div>
           <div class="mi" id="rowVideo"><span class="d i"></span>video</div>
           <div class="mi"><span class="d g"></span>wd-download</div>
           <div class="msep"></div>
-          <div class="mi">Open Connecter…<span class="kb">⌘O</span></div>
+          <div class="mi" id="rowOpen">Open Connecter…<span class="kb">⌘O</span></div>
           <div class="msep"></div>
           <div class="mi">Quit<span class="kb">⌘Q</span></div>
+        </div>
+
+        <div class="sheet" id="sheet">
+          <h4>New SMB share</h4>
+          <p class="lbl">Mounted in Finder</p>
+          <div class="box">
+            <div class="pick" id="pick"><div><b>fotos</b><small>smb://nas.local/fotos</small></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#0a7cff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8.2"/><path d="M10 5.8v8M6.6 10.6 10 14l3.4-3.4"/></svg></div>
+          </div>
+          <p class="lbl">Identification</p>
+          <div class="box fields">
+            <span>Name</span><div class="fv" data-v="fotos">Optional</div>
+            <span>Host / IP</span><div class="fv" data-v="nas.local">192.168.1.1 or server.local</div>
+            <span>Path</span><div class="fv" data-v="fotos">share-name</div>
+          </div>
+          <div class="btns"><span>Cancel</span><span class="pri" id="addBtn">Add</span></div>
         </div>
 
         <div class="notif" id="notif">
@@ -474,7 +522,7 @@
       <h2 class="rv">Set it up once. Forget about it.</h2>
       <p class="lead rv">Three steps and your network drives stop being a problem.</p>
       <div class="grid steps">
-        <div class="card rv" style="--i:0"><h3>Add your shares</h3><p>Enter the SMB address of each shared folder on your NAS or server.</p></div>
+        <div class="card rv" style="--i:0"><h3>Add your shares</h3><p>Pick the shares you already have mounted in Finder, or enter the SMB address of each shared folder on your NAS or server.</p></div>
         <div class="card rv" style="--i:1"><h3>Save your credentials</h3><p>Your username and password stay protected in the macOS Keychain.</p></div>
         <div class="card rv" style="--i:2"><h3>Leave it in the menu bar</h3><p>Connecter mounts, watches and reconnects in the background. It only bothers you if something goes wrong.</p></div>
       </div>
@@ -503,8 +551,9 @@
       <details class="rv"><summary>Which version of macOS do I need?</summary><p>macOS 26 Tahoe or later.</p></details>
       <details class="rv"><summary>Which languages is it available in?</summary><p>English, Spanish, German, French, Italian, Brazilian Portuguese, Japanese and Simplified Chinese. Connecter uses your Mac’s language.</p></details>
       <details class="rv"><summary>What happens if I close the lid or switch Wi‑Fi networks?</summary><p>When your Mac wakes up or the network changes, Connecter mounts your shares again automatically. If there’s no connection, it pauses until the network comes back.</p></details>
+      <details class="rv"><summary>Do I have to type in every share by hand?</summary><p>No. Connect to your server in Finder first (Go › Connect to Server…, or ⌘K). When you add a share in Connecter, every SMB volume Finder has mounted is listed under “Mounted in Finder”: click one and its name, server, path and user are filled in for you. Leave the password empty to use the one Finder already saved. If you’ve used Connecter before, Settings › Keychain can also restore your shares from the ones saved in the Keychain.</p></details>
       <details class="rv"><summary>Where are my passwords stored?</summary><p>Only in the macOS Keychain, the same system macOS itself uses for your passwords.</p></details>
-      <details class="rv"><summary>When will it be available?</summary><p>Connecter is coming soon to the Mac App Store. This page will be updated with the download link.</p></details>
+      <details class="rv"><summary>Where can I get it?</summary><p>Connecter is available now on the <a href="https://apps.apple.com/app/id6829888591">Mac App Store</a>.</p></details>
     </section>
 
     <section class="section" id="support">
@@ -515,8 +564,8 @@
     <section class="cta rv">
       <img src="icon.png" alt="">
       <h2>One less worry.</h2>
-      <p>Stop reconnecting by hand. Connecter is coming soon to the Mac App Store.</p>
-      <span class="btn">Coming soon</span>
+      <p>Stop reconnecting by hand. Connecter is available now on the Mac App Store.</p>
+      <a class="btn" href="https://apps.apple.com/app/id6829888591">Download on the Mac App Store</a>
     </section>
   </main>
 
@@ -550,9 +599,14 @@
       screen.style.setProperty('--k', (stage.clientWidth * (narrow ? .84 : .98) / 1000).toFixed(4));
     };
 
-    // Escena: el puntero abre el menú, monta «video» y macOS lo anuncia
+    // Escena: el puntero añade «fotos», que el Finder ya tenía montado, luego
+    // abre el menú, monta «video» y macOS lo anuncia
     const mbi = $('mbi'), menu = $('menu'), row = $('rowVideo'), vol = $('volNew'),
-          notif = $('notif'), cursor = $('cursor');
+          notif = $('notif'), cursor = $('cursor'), sheet = $('sheet'), pick = $('pick'),
+          addBtn = $('addBtn'), rowOpen = $('rowOpen'), rowFotos = $('rowFotos'), head = $('menuHead');
+    const fields = [...sheet.querySelectorAll('.fv')];
+    fields.forEach((f) => { f.dataset.ph = f.textContent; });
+    head.dataset.before = head.textContent;
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     let visible = true;
     const waitVisible = async () => { while (!visible || document.hidden) await sleep(300); };
@@ -573,16 +627,35 @@
     const reset = () => {
       menu.classList.remove('open'); mbi.classList.remove('on', 'busy');
       row.classList.remove('hl'); vol.classList.remove('show'); notif.classList.remove('show');
+      rowOpen.classList.remove('hl'); sheet.classList.remove('show'); pick.classList.remove('hl');
+      fields.forEach((f) => { f.textContent = f.dataset.ph; f.classList.remove('on'); });
+      rowFotos.classList.remove('show'); head.textContent = head.dataset.before;
       cursor.style.transition = 'none';
       cursor.style.transform = 'translate(600px, 440px)';
       cursor.offsetWidth; cursor.style.transition = '';
     };
-    const finalState = () => { reset(); vol.classList.add('show'); notif.classList.add('show'); cursor.style.display = 'none'; };
+    const finalState = () => { reset(); rowFotos.classList.add('show'); head.textContent = head.dataset.after; vol.classList.add('show'); notif.classList.add('show'); cursor.style.display = 'none'; };
 
     async function loop() {
       for (;;) {
         reset(); screen.classList.remove('fade');
         await sleep(900); await waitVisible();
+        // 1. Añadir un recurso que el Finder ya tiene montado
+        moveTo(mbi, 22, 14); await sleep(1150);
+        await click(); mbi.classList.add('on'); menu.classList.add('open'); await sleep(800);
+        moveTo(rowOpen, 70, 16); await sleep(1000);
+        rowOpen.classList.add('hl'); await sleep(300);
+        await click(); menu.classList.remove('open'); mbi.classList.remove('on'); rowOpen.classList.remove('hl');
+        sheet.classList.add('show'); await sleep(700);
+        moveTo(pick, 160, 18); await sleep(1100);
+        pick.classList.add('hl'); await click();
+        for (const f of fields) { f.textContent = f.dataset.v; f.classList.add('on'); await sleep(160); }
+        await sleep(900);
+        moveTo(addBtn, 28, 12); await sleep(1000);
+        addBtn.classList.add('press'); await click(); addBtn.classList.remove('press');
+        sheet.classList.remove('show'); rowFotos.classList.add('show'); head.textContent = head.dataset.after;
+        await sleep(1300); await waitVisible();
+        // 2. Montar «video» desde el menú
         moveTo(mbi, 22, 14); await sleep(1150);
         await click(); mbi.classList.add('on'); menu.classList.add('open'); await sleep(900);
         moveTo(row, 70, 16); await sleep(1000);
