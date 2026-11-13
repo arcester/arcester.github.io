@@ -330,6 +330,7 @@
     .term code { color: #fff; font-size: clamp(13px, 1.9vw, 16px); white-space: nowrap; overflow-x: auto; }
     .term code span { display: block; }
     .term code span::before { content: "$ "; color: #ffc65a; }
+    .term code span + span::before { content: "  "; }
     .copy {
       flex: none; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
       color: #4a1a06; background: #ffd166; border: 0; border-radius: 9px; padding: 7px 12px;
@@ -382,13 +383,13 @@
       <p class="tagline">Paella vive en la barra de menús y vigila la temperatura del chip. Cuando supera tu objetivo, frena con suavidad las apps que lo están calentando, y las suelta en cuanto se enfría.</p>
       <div class="actions">
         <div class="term">
-          <code><span>brew trust arcester/tap</span><span>brew install --cask arcester/tap/paella</span></code>
+          <code><span>brew trust arcester/tap &&</span><span>brew install --cask arcester/tap/paella</span></code>
           <button class="copy" type="button" data-done="Copiado">Copiar</button>
         </div>
         <a class="btn btn-ghost" href="#features">Ver funciones</a>
       </div>
       <p class="req">MacBook Air con Apple silicon · macOS 14 Sonoma o posterior · Gratis · 8 idiomas</p>
-      <p class="req">El primer comando permite a Homebrew instalar apps de mi tap. La primera vez que abras Paella, macOS te preguntará si quieres abrir una app descargada de Internet: pulsa Abrir. Está notarizada por Apple, así que solo lo verás una vez.</p>
+      <p class="req"><code>brew trust</code> permite a Homebrew instalar apps de mi tap. La primera vez que abras Paella, macOS te preguntará si quieres abrir una app descargada de Internet: pulsa Abrir. Está notarizada por Apple, así que solo lo verás una vez.</p>
     </div>
 
     <div class="stage" id="stage" role="img" aria-label="Animación: HandBrake calienta el chip; Paella lo pasa a los núcleos de eficiencia y lo pausa a intervalos cortos hasta que la temperatura se asienta en el objetivo de 82 °C.">
@@ -484,7 +485,7 @@
       <h2 class="rv">Ajústalo una vez. Déjalo a fuego lento.</h2>
       <p class="lead rv">Tres pasos y tu MacBook Air deja de quemar en las piernas.</p>
       <div class="grid steps">
-        <div class="card rv" style="--i:0"><h3>Instálalo</h3><p>Dos comandos con Homebrew, o la descarga notarizada desde GitHub.</p></div>
+        <div class="card rv" style="--i:0"><h3>Instálalo</h3><p>Un comando con Homebrew, o la descarga notarizada desde GitHub.</p></div>
         <div class="card rv" style="--i:1"><h3>Elige tu objetivo</h3><p>82 °C de serie. Bájalo para un portátil más fresco, súbelo para más velocidad.</p></div>
         <div class="card rv" style="--i:2"><h3>Olvídate</h3><p>Paella trabaja en segundo plano y solo interviene cuando el chip se calienta demasiado. El punto de la barra de menús te avisa.</p></div>
       </div>
@@ -527,10 +528,10 @@
       <h2>Siempre al punto.</h2>
       <p>Instala Paella desde el Terminal con Homebrew:</p>
       <div class="term">
-        <code><span>brew trust arcester/tap</span><span>brew install --cask arcester/tap/paella</span></code>
+        <code><span>brew trust arcester/tap &&</span><span>brew install --cask arcester/tap/paella</span></code>
         <button class="copy" type="button" data-done="Copiado">Copiar</button>
       </div>
-      <p class="alt">El primer comando permite a Homebrew instalar apps de mi tap. La primera vez que abras Paella, macOS te preguntará si quieres abrir una app descargada de Internet: pulsa Abrir. Está notarizada por Apple, así que solo lo verás una vez.</p>
+      <p class="alt"><code>brew trust</code> permite a Homebrew instalar apps de mi tap. La primera vez que abras Paella, macOS te preguntará si quieres abrir una app descargada de Internet: pulsa Abrir. Está notarizada por Apple, así que solo lo verás una vez.</p>
       <p class="alt">¿Prefieres no usar Homebrew? Descarga el zip notarizado desde <a href="https://github.com/arcester/paella/releases">GitHub Releases</a> y mueve Paella.app a Aplicaciones.</p>
     </section>
   </main>
@@ -700,7 +701,7 @@
       const btn = term.querySelector('.copy'), code = term.querySelector('code');
       btn.addEventListener('click', async () => {
         try {
-          await navigator.clipboard.writeText(code.innerText.trim());
+          await navigator.clipboard.writeText(code.innerText.trim().split('\n').map((l) => l.trim()).join(' '));
           const old = btn.textContent; btn.textContent = btn.dataset.done;
           setTimeout(() => { btn.textContent = old; }, 1600);
         } catch (e) {

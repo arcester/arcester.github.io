@@ -330,6 +330,7 @@
     .term code { color: #fff; font-size: clamp(13px, 1.9vw, 16px); white-space: nowrap; overflow-x: auto; }
     .term code span { display: block; }
     .term code span::before { content: "$ "; color: #ffc65a; }
+    .term code span + span::before { content: "  "; }
     .copy {
       flex: none; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
       color: #4a1a06; background: #ffd166; border: 0; border-radius: 9px; padding: 7px 12px;
@@ -700,7 +701,7 @@
       const btn = term.querySelector('.copy'), code = term.querySelector('code');
       btn.addEventListener('click', async () => {
         try {
-          await navigator.clipboard.writeText(code.innerText.trim());
+          await navigator.clipboard.writeText(code.innerText.trim().split('\n').map((l) => l.trim()).join(' '));
           const old = btn.textContent; btn.textContent = btn.dataset.done;
           setTimeout(() => { btn.textContent = old; }, 1600);
         } catch (e) {

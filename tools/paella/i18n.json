@@ -71,7 +71,7 @@
   "how_h2": "Set it once. Let it simmer.",
   "how_lead": "Three steps and your MacBook Air stops getting too hot to hold.",
   "h1_t": "Install it",
-  "h1_p": "Two commands with Homebrew, or the notarized download from GitHub.",
+  "h1_p": "One command with Homebrew, or the notarized download from GitHub.",
   "h2_t": "Set your target",
   "h2_p": "82 °C out of the box. Lower it for a cooler lap, raise it for more speed.",
   "h3_t": "Forget about it",
@@ -101,10 +101,10 @@
   "cta_h2": "Never overcooked.",
   "cta_p": "Install Paella from the Terminal with Homebrew:",
   "brew": "brew install --cask arcester/tap/paella",
-  "brew_trust": "brew trust arcester/tap",
+  "brew_trust": "brew trust arcester/tap &&",
   "copy": "Copy",
   "copied": "Copied",
-  "first_open": "The first command lets Homebrew install apps from my tap. The first time you open Paella, macOS asks whether you want to open an app downloaded from the internet: click Open. It’s notarized by Apple, so you’ll only see this once.",
+  "first_open": "<code>brew trust</code> lets Homebrew install apps from my tap. The first time you open Paella, macOS asks whether you want to open an app downloaded from the internet: click Open. It’s notarized by Apple, so you’ll only see this once.",
   "cta_alt": "Prefer not to use Homebrew? Download the notarized zip from <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> and move Paella.app to Applications."
  },
  "es": {
@@ -179,7 +179,7 @@
   "how_h2": "Ajústalo una vez. Déjalo a fuego lento.",
   "how_lead": "Tres pasos y tu MacBook Air deja de quemar en las piernas.",
   "h1_t": "Instálalo",
-  "h1_p": "Dos comandos con Homebrew, o la descarga notarizada desde GitHub.",
+  "h1_p": "Un comando con Homebrew, o la descarga notarizada desde GitHub.",
   "h2_t": "Elige tu objetivo",
   "h2_p": "82 °C de serie. Bájalo para un portátil más fresco, súbelo para más velocidad.",
   "h3_t": "Olvídate",
@@ -209,10 +209,10 @@
   "cta_h2": "Siempre al punto.",
   "cta_p": "Instala Paella desde el Terminal con Homebrew:",
   "brew": "brew install --cask arcester/tap/paella",
-  "brew_trust": "brew trust arcester/tap",
+  "brew_trust": "brew trust arcester/tap &&",
   "copy": "Copiar",
   "copied": "Copiado",
-  "first_open": "El primer comando permite a Homebrew instalar apps de mi tap. La primera vez que abras Paella, macOS te preguntará si quieres abrir una app descargada de Internet: pulsa Abrir. Está notarizada por Apple, así que solo lo verás una vez.",
+  "first_open": "<code>brew trust</code> permite a Homebrew instalar apps de mi tap. La primera vez que abras Paella, macOS te preguntará si quieres abrir una app descargada de Internet: pulsa Abrir. Está notarizada por Apple, así que solo lo verás una vez.",
   "cta_alt": "¿Prefieres no usar Homebrew? Descarga el zip notarizado desde <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> y mueve Paella.app a Aplicaciones."
  }
 }
