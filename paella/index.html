@@ -328,7 +328,8 @@
       box-shadow: 0 18px 40px rgba(30, 8, 0, .35);
     }
     .term code { color: #fff; font-size: clamp(13px, 1.9vw, 16px); white-space: nowrap; overflow-x: auto; }
-    .term code::before { content: "$ "; color: #ffc65a; }
+    .term code span { display: block; }
+    .term code span::before { content: "$ "; color: #ffc65a; }
     .copy {
       flex: none; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
       color: #4a1a06; background: #ffd166; border: 0; border-radius: 9px; padding: 7px 12px;
@@ -381,12 +382,13 @@
       <p class="tagline">Paella lives in your menu bar and watches the chip temperature. When it goes above your target, it gently slows down the apps heating it up, and lets them go as soon as it cools.</p>
       <div class="actions">
         <div class="term">
-          <code>brew install --cask arcester/tap/paella</code>
+          <code><span>brew trust arcester/tap</span><span>brew install --cask arcester/tap/paella</span></code>
           <button class="copy" type="button" data-done="Copied">Copy</button>
         </div>
         <a class="btn btn-ghost" href="#features">See features</a>
       </div>
       <p class="req">Apple silicon MacBook Air · macOS 14 Sonoma or later · Free · 8 languages</p>
+      <p class="req">The first command lets Homebrew install apps from my tap. The first time you open Paella, macOS asks whether you want to open an app downloaded from the internet: click Open. It’s notarized by Apple, so you’ll only see this once.</p>
     </div>
 
     <div class="stage" id="stage" role="img" aria-label="Animation: HandBrake heats up the chip; Paella moves it to the efficiency cores and pauses it in short bursts until the temperature settles at the 82 °C target.">
@@ -482,7 +484,7 @@
       <h2 class="rv">Set it once. Let it simmer.</h2>
       <p class="lead rv">Three steps and your MacBook Air stops getting too hot to hold.</p>
       <div class="grid steps">
-        <div class="card rv" style="--i:0"><h3>Install it</h3><p>One command with Homebrew, or the notarized download from GitHub.</p></div>
+        <div class="card rv" style="--i:0"><h3>Install it</h3><p>Two commands with Homebrew, or the notarized download from GitHub.</p></div>
         <div class="card rv" style="--i:1"><h3>Set your target</h3><p>82 °C out of the box. Lower it for a cooler lap, raise it for more speed.</p></div>
         <div class="card rv" style="--i:2"><h3>Forget about it</h3><p>Paella works in the background and only steps in when the chip gets too hot. The dot in the menu bar tells you when.</p></div>
       </div>
@@ -525,9 +527,10 @@
       <h2>Never overcooked.</h2>
       <p>Install Paella from the Terminal with Homebrew:</p>
       <div class="term">
-        <code>brew install --cask arcester/tap/paella</code>
+        <code><span>brew trust arcester/tap</span><span>brew install --cask arcester/tap/paella</span></code>
         <button class="copy" type="button" data-done="Copied">Copy</button>
       </div>
+      <p class="alt">The first command lets Homebrew install apps from my tap. The first time you open Paella, macOS asks whether you want to open an app downloaded from the internet: click Open. It’s notarized by Apple, so you’ll only see this once.</p>
       <p class="alt">Prefer not to use Homebrew? Download the notarized zip from <a href="https://github.com/arcester/paella/releases">GitHub Releases</a> and move Paella.app to Applications.</p>
     </section>
   </main>
@@ -697,7 +700,7 @@
       const btn = term.querySelector('.copy'), code = term.querySelector('code');
       btn.addEventListener('click', async () => {
         try {
-          await navigator.clipboard.writeText(code.textContent);
+          await navigator.clipboard.writeText(code.innerText.trim());
           const old = btn.textContent; btn.textContent = btn.dataset.done;
           setTimeout(() => { btn.textContent = old; }, 1600);
         } catch (e) {

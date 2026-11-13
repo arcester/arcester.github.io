@@ -328,7 +328,8 @@
       box-shadow: 0 18px 40px rgba(30, 8, 0, .35);
     }
     .term code { color: #fff; font-size: clamp(13px, 1.9vw, 16px); white-space: nowrap; overflow-x: auto; }
-    .term code::before { content: "$ "; color: #ffc65a; }
+    .term code span { display: block; }
+    .term code span::before { content: "$ "; color: #ffc65a; }
     .copy {
       flex: none; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
       color: #4a1a06; background: #ffd166; border: 0; border-radius: 9px; padding: 7px 12px;
@@ -381,12 +382,13 @@
       <p class="tagline">{{tagline}}</p>
       <div class="actions">
         <div class="term">
-          <code>{{brew}}</code>
+          <code><span>{{brew_trust}}</span><span>{{brew}}</span></code>
           <button class="copy" type="button" data-done="{{copied}}">{{copy}}</button>
         </div>
         <a class="btn btn-ghost" href="#features">{{btn_features}}</a>
       </div>
       <p class="req">{{req}}</p>
+      <p class="req">{{first_open}}</p>
     </div>
 
     <div class="stage" id="stage" role="img" aria-label="{{stage_label}}">
@@ -525,9 +527,10 @@
       <h2>{{cta_h2}}</h2>
       <p>{{cta_p}}</p>
       <div class="term">
-        <code>{{brew}}</code>
+        <code><span>{{brew_trust}}</span><span>{{brew}}</span></code>
         <button class="copy" type="button" data-done="{{copied}}">{{copy}}</button>
       </div>
+      <p class="alt">{{first_open}}</p>
       <p class="alt">{{cta_alt}}</p>
     </section>
   </main>
@@ -697,7 +700,7 @@
       const btn = term.querySelector('.copy'), code = term.querySelector('code');
       btn.addEventListener('click', async () => {
         try {
-          await navigator.clipboard.writeText(code.textContent);
+          await navigator.clipboard.writeText(code.innerText.trim());
           const old = btn.textContent; btn.textContent = btn.dataset.done;
           setTimeout(() => { btn.textContent = old; }, 1600);
         } catch (e) {
