@@ -6,6 +6,8 @@ Webs de mis proyectos, publicadas con GitHub Pages.
 - [`/connecter/`](https://arcester.github.io/connecter/) → Connecter, gestor de carpetas compartidas SMB para macOS (inglés)
 - [`/connecter/es/`](https://arcester.github.io/connecter/es/) → Connecter en español
 - `/connecter/en/` → redirige a `/connecter/` (estuvo publicada como versión inglesa)
+- [`/paella/`](https://arcester.github.io/paella/) → Paella, termostato de barra de menús para MacBook Air sin ventilador (inglés)
+- [`/paella/es/`](https://arcester.github.io/paella/es/) → Paella en español
 
 ## Cómo editar la web de Connecter
 
@@ -16,3 +18,13 @@ Las dos páginas (`connecter/index.html` y `connecter/es/index.html`) se generan
 - `tools/connecter/wallpaper.py`: genera `connecter/img/wall.webp`, el fondo abstracto de la portada.
 
 Tras cualquier cambio: `python3 tools/connecter/build.py`
+
+## Cómo editar la web de Paella
+
+Igual que Connecter: `paella/index.html` y `paella/es/index.html` se generan.
+
+- `tools/paella/template.html`: estructura, estilos y animaciones (menú simulado y curva de temperatura).
+- `tools/paella/i18n.json`: todos los textos, en inglés y en español.
+- `tools/paella/wallpaper.py`: genera `paella/img/wall.webp`, el fondo en tonos azafrán.
+
+Tras cualquier cambio: `python3 tools/paella/build.py`
