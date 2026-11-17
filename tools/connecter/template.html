@@ -248,7 +248,7 @@
     .rw-copy { text-align: center; max-width: 34em; }
     .rw-copy h2 { font-size: clamp(30px, 4.6vw, 48px); letter-spacing: -.025em; line-height: 1.1; margin: 0 0 10px; }
     .rw-copy p { color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); margin: 0; }
-    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 687)); transform-origin: 50% 100%; will-change: transform; }
+    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 552)); transform-origin: 50% 100%; will-change: transform; }
     .rw-frame > img:first-child { display: block; width: 100%; height: auto; }
     .rw-menu {
       /* --mw: the menu's width in points; drawn at the window's scale (552 points wide), sticking out on the right */
@@ -447,7 +447,7 @@
         {{scheme}}
       </div>
       <div class="rw-frame" id="rwFrame">
-        <img src="{{root}}img/{{img_win}}.webp" width="552" height="687" alt="{{win_alt}}" data-scheme>
+        <img src="{{root}}img/{{img_win}}.webp" width="552" height="552" alt="{{win_alt}}" data-scheme>
         <img class="rw-menu" id="rwMenu" src="{{root}}img/{{img_menu}}.webp" width="{{menu_w}}" height="471" style="--mw: {{menu_w}}" alt="{{menu_alt}}" data-scheme>
       </div>
     </div>

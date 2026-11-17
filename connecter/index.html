@@ -276,7 +276,7 @@
     .rw-copy { text-align: center; max-width: 34em; }
     .rw-copy h2 { font-size: clamp(30px, 4.6vw, 48px); letter-spacing: -.025em; line-height: 1.1; margin: 0 0 10px; }
     .rw-copy p { color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); margin: 0; }
-    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 687)); transform-origin: 50% 100%; will-change: transform; }
+    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 552)); transform-origin: 50% 100%; will-change: transform; }
     .rw-frame > img:first-child { display: block; width: 100%; height: auto; }
     .rw-menu {
       /* --mw: the menu's width in points; drawn at the window's scale (552 points wide), sticking out on the right */
@@ -495,7 +495,7 @@
         <div class="scheme" role="radiogroup" aria-label="App appearance in the screenshots"><button type="button" role="radio" data-mode="system" aria-checked="true">System</button><button type="button" role="radio" data-mode="light" aria-checked="false">Light</button><button type="button" role="radio" data-mode="dark" aria-checked="false">Dark</button></div>
       </div>
       <div class="rw-frame" id="rwFrame">
-        <img src="img/window.webp" width="552" height="687" alt="Connecter main window with eight SMB shares grouped by server: three mounted, two on an unreachable server and one on a paused server" data-scheme>
+        <img src="img/window.webp" width="552" height="552" alt="Connecter main window with eight SMB shares grouped by server, each with its Pause / Auto selector: three mounted, one with a wrong password, one on an unreachable server and one on a paused server" data-scheme>
         <img class="rw-menu" id="rwMenu" src="img/menu-en.webp" width="304" height="471" style="--mw: 304" alt="Connecter menu in the menu bar: 3 of 5 mounted, one section per server and a green dot next to each mounted share" data-scheme>
       </div>
     </div>

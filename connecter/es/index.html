@@ -276,7 +276,7 @@
     .rw-copy { text-align: center; max-width: 34em; }
     .rw-copy h2 { font-size: clamp(30px, 4.6vw, 48px); letter-spacing: -.025em; line-height: 1.1; margin: 0 0 10px; }
     .rw-copy p { color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); margin: 0; }
-    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 687)); transform-origin: 50% 100%; will-change: transform; }
+    .rw-frame { position: relative; width: min(420px, 76vw, calc((100svh - 260px) * 552 / 552)); transform-origin: 50% 100%; will-change: transform; }
     .rw-frame > img:first-child { display: block; width: 100%; height: auto; }
     .rw-menu {
       /* --mw: the menu's width in points; drawn at the window's scale (552 points wide), sticking out on the right */
@@ -495,7 +495,7 @@
         <div class="scheme" role="radiogroup" aria-label="Apariencia de la app en las capturas"><button type="button" role="radio" data-mode="system" aria-checked="true">Sistema</button><button type="button" role="radio" data-mode="light" aria-checked="false">Claro</button><button type="button" role="radio" data-mode="dark" aria-checked="false">Oscuro</button></div>
       </div>
       <div class="rw-frame" id="rwFrame">
-        <img src="../img/ventana.webp" width="552" height="687" alt="Ventana principal de Connecter con ocho recursos SMB agrupados por servidor: tres montados, dos en un servidor no disponible y uno en un servidor en pausa" data-scheme>
+        <img src="../img/ventana.webp" width="552" height="552" alt="Ventana principal de Connecter con ocho recursos SMB agrupados por servidor, cada uno con su selector Pausa / Auto: tres montados, uno con la contraseña incorrecta, uno en un servidor no disponible y uno en un servidor en pausa" data-scheme>
         <img class="rw-menu" id="rwMenu" src="../img/menu.webp" width="330" height="471" style="--mw: 330" alt="Menú de Connecter en la barra de menús: 3 de 5 montados, una sección por servidor y un punto verde junto a cada recurso montado" data-scheme>
       </div>
     </div>
