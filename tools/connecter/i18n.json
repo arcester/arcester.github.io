@@ -34,7 +34,7 @@
     "n_now": "now",
     "stage_label": "Animation: Connecter mounts the “video” share from the menu bar and macOS shows it on the desktop.",
     "win_h2": "Every share, at a glance.",
-    "win_p": "One compact window, grouped by server, shows what is mounted and what is not. One switch turns each share on or off, and each server has its own mode: Pause, Mount or Auto. Need more room? Drag it wider and it remembers.",
+    "win_p": "One compact window, grouped by server, shows what is mounted and what is not. One switch turns each share on or off, and each server has its own mode: Auto or Pause. Need more room? Drag it wider and it remembers.",
     "win_alt": "Connecter main window with eight SMB shares grouped by server: three mounted, two on an unreachable server and one on a paused server",
     "menu_alt": "Connecter menu in the menu bar: 3 of 5 mounted, one section per server and a green dot next to each mounted share",
     "feat_h2": "Everything you need. Nothing you don’t.",
@@ -102,7 +102,11 @@
     "a_lang": "English, Spanish, German, French, Italian, Brazilian Portuguese, Japanese and Simplified Chinese. Connecter uses your Mac’s language.",
     "btn_hero": "Download",
     "q_mode": "Can I stop a server from reconnecting on its own?",
-    "a_mode": "Yes. Every server has its own mode. <strong>Auto</strong> watches the server and mounts its shares whenever it answers. <strong>Mount</strong> connects them once, at launch or when you pick it, and leaves them alone if they drop. <strong>Pause</strong> unmounts them and stops checking."
+    "a_mode": "Yes. Every server has its own mode. <strong>Auto</strong> watches the server and mounts its shares whenever it answers. <strong>Pause</strong> unmounts them and stops checking until you switch it back.",
+    "f7_t": "Works over VPN",
+    "f7_p": "Give each server its other addresses, and Connecter finds it both on your local network and over a VPN.",
+    "f8_t": "Organized by server",
+    "f8_p": "Shares are grouped by the machine they live on, so you can see and manage everything on each server at a glance."
   },
   "es": {
     "out": "connecter/es/index.html",
@@ -139,7 +143,7 @@
     "n_now": "ahora",
     "stage_label": "Animación: Connecter monta el recurso «video» desde la barra de menús y macOS lo muestra en el escritorio.",
     "win_h2": "Todos tus recursos, de un vistazo.",
-    "win_p": "Una ventana compacta, agrupada por servidor, te dice qué está montado y qué no. Un interruptor activa o desactiva cada recurso, y cada servidor tiene su modo: Pausa, Montar o Auto. ¿Necesitas más sitio? Ensánchala y la recordará así.",
+    "win_p": "Una ventana compacta, agrupada por servidor, te dice qué está montado y qué no. Un interruptor activa o desactiva cada recurso, y cada servidor tiene su modo: Auto o Pausa. ¿Necesitas más sitio? Ensánchala y la recordará así.",
     "win_alt": "Ventana principal de Connecter con ocho recursos SMB agrupados por servidor: tres montados, dos en un servidor no disponible y uno en un servidor en pausa",
     "menu_alt": "Menú de Connecter en la barra de menús: 3 de 5 montados, una sección por servidor y un punto verde junto a cada recurso montado",
     "feat_h2": "Todo lo que necesitas, nada que no.",
@@ -207,6 +211,10 @@
     "a_lang": "Español, inglés, alemán, francés, italiano, portugués de Brasil, japonés y chino simplificado. Connecter usa el idioma de tu Mac.",
     "btn_hero": "Descargar",
     "q_mode": "¿Puedo evitar que un servidor se reconecte solo?",
-    "a_mode": "Sí. Cada servidor tiene su modo. <strong>Auto</strong> vigila el servidor y monta sus recursos cada vez que responde. <strong>Montar</strong> los conecta una vez, al arrancar o al elegirlo, y no los vuelve a montar si se caen. <strong>Pausa</strong> los desmonta y deja de comprobarlos."
+    "a_mode": "Sí. Cada servidor tiene su modo. <strong>Auto</strong> vigila el servidor y monta sus recursos cada vez que responde. <strong>Pausa</strong> los desmonta y deja de comprobarlos hasta que vuelvas a activarlo.",
+    "f7_t": "Funciona con VPN",
+    "f7_p": "Indica otras direcciones de cada servidor y Connecter lo encuentra tanto en tu red local como con la VPN activa.",
+    "f8_t": "Organizado por servidor",
+    "f8_p": "Los recursos se agrupan por la máquina en la que están, así ves y gestionas todo lo de cada servidor de un vistazo."
   }
 }
