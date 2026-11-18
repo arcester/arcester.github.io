@@ -227,7 +227,7 @@
     .cursor svg { transition: transform .12s; transform-origin: 3px 2px; }
     .no-js .cursor { display: none; }
     .cursor.click svg { transform: scale(.82); }
-    /* Hoja «Nuevo recurso»: elige un volumen que el Finder ya tiene montado */
+    /* Hoja «Nuevo recurso»: servidor elegido y su recurso montado en el Finder ya marcado */
     .sheet {
       position: absolute; left: 270px; top: 92px; width: 430px; padding: 20px 22px 18px;
       background: rgba(38, 40, 48, .93);
@@ -244,7 +244,12 @@
     .sheet .box { margin-bottom: 14px; padding: 8px 12px; border-radius: 12px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); }
     .pick { display: flex; align-items: center; justify-content: space-between; margin: 0 -8px; padding: 4px 8px; border-radius: 8px; transition: background-color .15s; }
     .pick.hl { background: rgba(10, 124, 255, .4); }
+    .pick { justify-content: flex-start; gap: 10px; }
     .pick b { display: block; font-size: 15px; }
+    .chk { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 4px; background: #0a7cff; }
+    .opt { display: flex; align-items: center; gap: 8px; }
+    .pop { display: inline-block; padding: 2px 30px 2px 10px; border-radius: 6px; background: rgba(255, 255, 255, .12); position: relative; }
+    .pop::after { content: '⌃⌄'; position: absolute; right: 9px; top: 50%; transform: translateY(-50%) scaleY(.8); font-size: 10px; letter-spacing: -1px; writing-mode: vertical-lr; color: rgba(255, 255, 255, .7); }
     .pick small { font-size: 12px; color: rgba(255, 255, 255, .55); }
     .fields { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 9px 10px; }
     .fields > span { text-align: right; color: rgba(255, 255, 255, .55); }
@@ -461,15 +466,13 @@
 
         <div class="sheet" id="sheet">
           <h4>Nuevo recurso SMB</h4>
-          <p class="lbl">Montado en el Finder</p>
+          <p class="lbl">Servidor</p>
+          <div class="box"><span class="pop">nas.local</span></div>
+          <p class="lbl">Credenciales</p>
+          <div class="box"><div class="opt"><span class="chk"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.2 4.1 7.3 8 2.8"/></svg></span>Usar las credenciales del servidor</div></div>
+          <p class="lbl">Recursos que se añadirán</p>
           <div class="box">
-            <div class="pick" id="pick"><div><b>fotos</b><small>smb://nas.local/fotos</small></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#0a7cff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8.2"/><path d="M10 5.8v8M6.6 10.6 10 14l3.4-3.4"/></svg></div>
-          </div>
-          <p class="lbl">Identificación</p>
-          <div class="box fields">
-            <span>Nombre</span><div class="fv" data-v="fotos">Opcional</div>
-            <span>Host / IP</span><div class="fv" data-v="nas.local">192.168.1.1 o servidor.local</div>
-            <span>Ruta</span><div class="fv" data-v="fotos">nombre-del-recurso</div>
+            <div class="pick" id="pick"><span class="chk"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.2 4.1 7.3 8 2.8"/></svg></span><div><b>fotos</b><small>smb://nas.local/fotos</small></div></div>
           </div>
           <div class="btns"><span>Cancelar</span><span class="pri" id="addBtn">Añadir</span></div>
         </div>
@@ -522,6 +525,10 @@
       <p class="lead rv">Nativa de macOS Tahoe. Todo se ajusta desde una ventana de ajustes sencilla.</p>
       <div class="scheme" role="radiogroup" aria-label="Apariencia de la app en las capturas"><button type="button" role="radio" data-mode="system" aria-checked="true">Sistema</button><button type="button" role="radio" data-mode="light" aria-checked="false">Claro</button><button type="button" role="radio" data-mode="dark" aria-checked="false">Oscuro</button></div>
       <div class="shots">
+        <figure class="wide rv">
+          <img src="../img/nuevo-recurso.webp" width="675" height="689" loading="lazy" alt="Hoja Nuevo recurso SMB: servidor nas.local elegido, sus credenciales y dos recursos ya montados en el Finder marcados para añadir" data-scheme>
+          <figcaption>Elige el servidor y marca sus recursos: los que ya están montados en el Finder salen marcados.</figcaption>
+        </figure>
         <figure class="rv" style="--i:0">
           <img src="../img/ajustes-general.webp" width="652" height="391" loading="lazy" alt="Ajustes generales: abrir al iniciar sesión y mostrar al abrir" data-scheme>
           <figcaption>Se abre sola al iniciar sesión y puede quedarse solo en la barra de menús.</figcaption>
@@ -541,7 +548,7 @@
       <h2 class="rv">Configúralo una vez. Olvídate.</h2>
       <p class="lead rv">Tres pasos y tus unidades de red dejan de ser un problema.</p>
       <div class="grid steps">
-        <div class="card rv" style="--i:0"><h3>Añade tus carpetas</h3><p>Elige las que ya tienes montadas en el Finder o indica la dirección SMB de cada carpeta compartida de tu NAS o servidor.</p></div>
+        <div class="card rv" style="--i:0"><h3>Añade tus carpetas</h3><p>Elige el servidor y marca sus carpetas: las que ya tienes montadas en el Finder salen solas y macOS te enseña el resto.</p></div>
         <div class="card rv" style="--i:1"><h3>Guarda tus credenciales</h3><p>Usuario y contraseña quedan protegidos en el Llavero de macOS.</p></div>
         <div class="card rv" style="--i:2"><h3>Déjalo en la barra de menús</h3><p>Connecter monta, vigila y reconecta en segundo plano. Solo te avisa si algo falla.</p></div>
       </div>
@@ -571,7 +578,7 @@
       <details class="rv"><summary>¿En qué idiomas está?</summary><p>Español, inglés, alemán, francés, italiano, portugués de Brasil, japonés y chino simplificado. Connecter usa el idioma de tu Mac.</p></details>
       <details class="rv"><summary>¿Qué pasa si cierro la tapa o cambio de Wi‑Fi?</summary><p>Al despertar el Mac o al detectar un cambio de red, Connecter vuelve a montar tus carpetas automáticamente. Si no hay conexión, pausa los intentos hasta que vuelva.</p></details>
       <details class="rv"><summary>¿Puedo evitar que un servidor se reconecte solo?</summary><p>Sí. Cada servidor tiene su modo. <strong>Auto</strong> vigila el servidor y monta sus recursos cada vez que responde. <strong>Pausa</strong> los desmonta y deja de comprobarlos hasta que vuelvas a activarlo.</p></details>
-      <details class="rv"><summary>¿Tengo que escribir cada carpeta a mano?</summary><p>No. Conéctate antes al servidor desde el Finder (Ir › Conectarse al servidor…, o ⌘K). Al añadir una carpeta en Connecter, todos los volúmenes SMB que tenga montados el Finder aparecen en «Montado en el Finder»: haz clic en uno y se rellenan el nombre, el servidor, la ruta y el usuario. Deja la contraseña vacía para usar la que ya guardó el Finder. Si ya habías usado Connecter, en Ajustes › Llavero también puedes recuperar tus carpetas a partir de las guardadas en el Llavero.</p></details>
+      <details class="rv"><summary>¿Tengo que escribir cada carpeta a mano?</summary><p>No. Pulsa + y elige el servidor: las carpetas de ese servidor que ya tenga montadas el Finder aparecen marcadas, y «Elegir recursos…» abre la lista de macOS con todas las demás. También puedes escribir el nombre de una. Si el servidor ya tiene usuario y contraseña en Connecter, las nuevas los usan; si no, los que escribas pasan a ser los del servidor. Deja la contraseña vacía para usar la que ya guardó el Finder. Si ya habías usado Connecter, en Ajustes › Llavero también puedes recuperar tus carpetas a partir de las guardadas en el Llavero.</p></details>
       <details class="rv"><summary>¿Dónde se guardan mis contraseñas?</summary><p>Únicamente en el Llavero de macOS, el mismo sistema que usa el propio sistema operativo para tus contraseñas.</p></details>
       <details class="rv"><summary>¿Dónde puedo conseguirla?</summary><p>Connecter ya está disponible en el <a href="https://apps.apple.com/app/id6829888591">Mac App Store</a>.</p></details>
     </section>
@@ -678,10 +685,9 @@
         rowOpen.classList.add('hl'); await sleep(300);
         await click(); menu.classList.remove('open'); mbi.classList.remove('on'); rowOpen.classList.remove('hl');
         sheet.classList.add('show'); await sleep(700);
+        // «fotos» is already mounted in Finder, so it comes ticked: straight to Add
         moveTo(pick, 160, 18); await sleep(1100);
-        pick.classList.add('hl'); await click();
-        for (const f of fields) { f.textContent = f.dataset.v; f.classList.add('on'); await sleep(160); }
-        await sleep(900);
+        pick.classList.add('hl'); await sleep(900);
         moveTo(addBtn, 28, 12); await sleep(1000);
         addBtn.classList.add('press'); await click(); addBtn.classList.remove('press');
         sheet.classList.remove('show'); rowFotos.classList.add('show'); head.textContent = head.dataset.after;
