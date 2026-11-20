@@ -28,3 +28,13 @@ Igual que Connecter: `paella/index.html` y `paella/es/index.html` se generan.
 - `tools/paella/wallpaper.py`: genera `paella/img/wall.webp`, el fondo en tonos azafrán.
 
 Tras cualquier cambio: `python3 tools/paella/build.py`
+
+## Visitas y estrellas
+
+Las dos webs muestran en el pie un contador de visitas (una por sesión del navegador, sin cookies)
+y en Soporte un botón para dar una estrella al repositorio con el número actual.
+
+- Contador: [Abacus](https://abacus.jasoncameron.dev), espacio `arcester.github.io`, claves `connecter` y `paella`
+  (inglés y español suman juntos). Consultar sin sumar: `https://abacus.jasoncameron.dev/get/arcester.github.io/connecter`
+- Estrellas: API pública de GitHub.
+- Repositorio y clave están en `GH_REPO` y `COUNTER_KEY` de cada `build.py`. Si un servicio falla, su dato no aparece.

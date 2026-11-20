@@ -11,6 +11,11 @@ from pathlib import Path
 # y volver a generar: canonical, hreflang y og:* se actualizan solos.
 SITE = 'https://arcester.github.io/connecter/'
 
+# Repositorio en GitHub (botón de estrella) y clave del contador de visitas en Abacus
+# (abacus.jasoncameron.dev, espacio arcester.github.io). Cambiar la clave pone el contador a cero.
+GH_REPO = 'arcester/connecter'
+COUNTER_KEY = 'connecter'
+
 # Ficha de Connecter en el Mac App Store.
 APP_STORE = 'https://apps.apple.com/app/id6829888591'
 
@@ -21,7 +26,7 @@ template = (HERE / 'template.html').read_text(encoding='utf-8')
 strings = json.loads((HERE / 'i18n.json').read_text(encoding='utf-8'))
 
 for lang, s in strings.items():
-    s = {**s, 'site': SITE, 'url': SITE + s['path'], 'appstore': APP_STORE}
+    s = {**s, 'site': SITE, 'url': SITE + s['path'], 'gh_repo': GH_REPO, 'counter_key': COUNTER_KEY, 'appstore': APP_STORE}
 
     def sub(m):
         key = m.group(1)

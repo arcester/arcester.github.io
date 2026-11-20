@@ -105,7 +105,10 @@
   "copy": "Copy",
   "copied": "Copied",
   "first_open": "<code>brew trust</code> lets Homebrew install apps from my tap. The first time you open Paella, macOS asks whether you want to open an app downloaded from the internet: click Open. It’s notarized by Apple, so you’ll only see this once.",
-  "cta_alt": "Prefer not to use Homebrew? Download the notarized zip from <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> and move Paella.app to Applications."
+  "cta_alt": "Prefer not to use Homebrew? Download the notarized zip from <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> and move Paella.app to Applications.",
+  "star_p": "Like Paella? A star on GitHub helps more people find it.",
+  "star_btn": "Star on GitHub",
+  "visits": "%@ visits"
  },
  "es": {
   "out": "paella/es/index.html",
@@ -213,6 +216,9 @@
   "copy": "Copiar",
   "copied": "Copiado",
   "first_open": "<code>brew trust</code> permite a Homebrew instalar apps de mi tap. La primera vez que abras Paella, macOS te preguntará si quieres abrir una app descargada de Internet: pulsa Abrir. Está notarizada por Apple, así que solo lo verás una vez.",
-  "cta_alt": "¿Prefieres no usar Homebrew? Descarga el zip notarizado desde <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> y mueve Paella.app a Aplicaciones."
+  "cta_alt": "¿Prefieres no usar Homebrew? Descarga el zip notarizado desde <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> y mueve Paella.app a Aplicaciones.",
+  "star_p": "¿Te gusta Paella? Una estrella en GitHub ayuda a que más gente la descubra.",
+  "star_btn": "Dale una estrella",
+  "visits": "%@ visitas"
  }
 }

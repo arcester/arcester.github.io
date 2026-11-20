@@ -377,6 +377,24 @@
     footer nav { margin-bottom: 8px; }
     footer nav a { margin: 0 10px; }
 
+    /* Estrella en GitHub (en Soporte) y contador de visitas (en el pie) */
+    .star { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: -14px; color: var(--muted); font-size: 16px; }
+    .star p { margin: 0; }
+    .gh-star {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+      border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
+      color: var(--text); font-size: 15px; font-weight: 600; text-decoration: none;
+      transition: border-color .3s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease);
+    }
+    .gh-star:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 16%, transparent); transform: translateY(-1px); }
+    .gh-star:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .gh-star svg { flex: none; color: #e3a008; transition: transform .45s var(--ease); }
+    .gh-star:hover svg { transform: rotate(-14deg) scale(1.15); }
+    .gh-star b { margin-left: 2px; padding-left: 10px; border-left: 1px solid var(--border); color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .visits { margin: 10px 0 0; font-size: 12.5px; letter-spacing: .02em; opacity: .7; font-variant-numeric: tabular-nums; animation: fade-in .8s var(--ease); }
+    .visits[hidden], .gh-star b[hidden] { display: none; }
+    @keyframes fade-in { from { opacity: 0; } }
+
     /* ---------- Aparición al hacer scroll (solo con JavaScript) ---------- */
     .js .rv { opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
     .js .rv.in { opacity: 1; transform: none; }
@@ -384,6 +402,7 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .js .rv { opacity: 1; transform: none; transition: none; }
+      .gh-star, .gh-star svg, .visits { transition: none; animation: none; }
       .rw { height: auto; }
       .rw .sticky { position: static; height: auto; padding: 88px 16px; }
       .scroll-hint svg, .mbi.busy .dot { animation: none; }
@@ -586,6 +605,10 @@
     <section class="section" id="support">
       <h2 class="rv">{{sup_h2}}</h2>
       <p class="lead rv">{{sup_p}}</p>
+      <div class="star rv">
+        <p>{{star_p}}</p>
+        <a class="gh-star" href="https://github.com/{{gh_repo}}" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>{{star_btn}}<b id="stars" hidden></b></a>
+      </div>
     </section>
 
     <section class="cta rv" id="download">
@@ -613,6 +636,7 @@
       <a href="#support">{{nav_support}}</a>
     </nav>
     © 2026 <a href="https://arcesaez.com/">Guzmán Arce</a>
+    <p class="visits" id="visits" data-label="{{visits}}" hidden></p>
   </footer>
 
   <script>
@@ -762,6 +786,25 @@
 
     fit(); placeMenu(); onScroll();
     if (reduce) finalState(); else loop();
+    // Visitas: Abacus (sin cookies ni registro) suma una por sesión del navegador; en el
+    // resto de páginas de la sesión, y fuera de la web publicada, solo se lee el total.
+    // Estrellas: API pública de GitHub. Si cualquiera de las dos falla, no se muestra nada.
+    const num = (v) => v.toLocaleString(document.documentElement.lang);
+    const getJSON = (url) => fetch(url).then((r) => (r.ok ? r.json() : Promise.reject(r.status)));
+    const visits = $('visits'), seen = 'visit-{{counter_key}}';
+    let first = /^https:$/.test(location.protocol) && !/^(localhost|127\.|\[::1\])/.test(location.hostname);
+    try { first = first && !sessionStorage.getItem(seen); sessionStorage.setItem(seen, '1'); } catch (e) {}
+    getJSON(`https://abacus.jasoncameron.dev/${first ? 'hit' : 'get'}/arcester.github.io/{{counter_key}}`)
+      .then(({ value }) => {
+        if (!Number.isFinite(value) || value < 1) return;
+        visits.textContent = visits.dataset.label.replace('%@', num(value));
+        visits.hidden = false;
+      }).catch(() => {});
+    getJSON('https://api.github.com/repos/{{gh_repo}}')
+      .then(({ stargazers_count: n }) => {
+        if (!Number.isFinite(n) || n < 1) return;
+        const b = $('stars'); b.textContent = num(n); b.hidden = false;
+      }).catch(() => {});
   })();
   </script>
 </body>
