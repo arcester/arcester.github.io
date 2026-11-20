@@ -227,6 +227,39 @@
     .cursor svg { transition: transform .12s; transform-origin: 3px 2px; }
     .no-js .cursor { display: none; }
     .cursor.click svg { transform: scale(.82); }
+    /* Hoja «Nuevo recurso»: servidor elegido y su recurso montado en el Finder ya marcado */
+    .sheet {
+      position: absolute; left: 270px; top: 92px; width: 430px; padding: 20px 22px 18px;
+      background: rgba(38, 40, 48, .93);
+      backdrop-filter: blur(30px) saturate(160%); -webkit-backdrop-filter: blur(30px) saturate(160%);
+      border-radius: 18px;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .14), 0 30px 60px rgba(0, 0, 0, .5);
+      font-size: 14px; color: #f2f2f5;
+      opacity: 0; transform: scale(.96); transition: opacity .2s, transform .25s;
+      pointer-events: none;
+    }
+    .sheet.show { opacity: 1; transform: none; }
+    .sheet h4 { margin: 0 0 14px; font-size: 19px; }
+    .sheet .lbl { margin: 0 0 6px 4px; font-size: 12px; color: rgba(255, 255, 255, .5); }
+    .sheet .box { margin-bottom: 14px; padding: 8px 12px; border-radius: 12px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); }
+    .pick { display: flex; align-items: center; justify-content: space-between; margin: 0 -8px; padding: 4px 8px; border-radius: 8px; transition: background-color .15s; }
+    .pick.hl { background: rgba(10, 124, 255, .4); }
+    .pick { justify-content: flex-start; gap: 10px; }
+    .pick b { display: block; font-size: 15px; }
+    .chk { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 4px; background: #0a7cff; }
+    .opt { display: flex; align-items: center; gap: 8px; }
+    .pop { display: inline-block; padding: 2px 30px 2px 10px; border-radius: 6px; background: rgba(255, 255, 255, .12); position: relative; }
+    .pop::after { content: '⌃⌄'; position: absolute; right: 9px; top: 50%; transform: translateY(-50%) scaleY(.8); font-size: 10px; letter-spacing: -1px; writing-mode: vertical-lr; color: rgba(255, 255, 255, .7); }
+    .pick small { font-size: 12px; color: rgba(255, 255, 255, .55); }
+    .fields { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 9px 10px; }
+    .fields > span { text-align: right; color: rgba(255, 255, 255, .55); }
+    .fv { height: 26px; line-height: 26px; padding: 0 8px; border-radius: 6px; background: rgba(0, 0, 0, .25); border: 1px solid rgba(255, 255, 255, .1); color: rgba(255, 255, 255, .32); }
+    .fv.on { color: #fff; }
+    .btns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+    .btns span { padding: 5px 16px; border-radius: 8px; background: rgba(255, 255, 255, .12); }
+    .btns .pri { background: #0a7cff; transition: filter .12s; }
+    .btns .pri.press { filter: brightness(1.25); }
+    .mi.new { display: none; } .mi.new.show { display: flex; }
     .screen.fade > :not(.d-wall):not(.mb) { transition: opacity .6s; opacity: 0; }
 
     @media (max-width: 900px) {
@@ -409,21 +442,39 @@
           <svg width="76" height="64" viewBox="0 0 76 64"><defs><linearGradient id="dg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f5f8"/><stop offset="1" stop-color="#b8c1cc"/></linearGradient></defs><rect x="4" y="14" width="68" height="40" rx="7" fill="url(#dg)"/><rect x="4" y="14" width="68" height="40" rx="7" fill="none" stroke="rgba(0,0,0,.18)"/><rect x="12" y="42" width="30" height="3" rx="1.5" fill="#8a96a5"/><circle cx="60" cy="43.5" r="2.4" fill="#30d158"/><circle cx="52" cy="27" r="9" fill="#2f7cf6"/><path d="M43 27h18M52 18c-3.5 3-3.5 15 0 18M52 18c3.5 3 3.5 15 0 18" stroke="#fff" stroke-width="1.3" fill="none"/></svg>
           <span>wd-download</span>
         </div>
-        <div class="vol" id="volNew" style="top: 256px">
+        <div class="vol" style="top: 256px">
+          <svg width="76" height="64" viewBox="0 0 76 64"><rect x="4" y="14" width="68" height="40" rx="7" fill="url(#dg)"/><rect x="4" y="14" width="68" height="40" rx="7" fill="none" stroke="rgba(0,0,0,.18)"/><rect x="12" y="42" width="30" height="3" rx="1.5" fill="#8a96a5"/><circle cx="60" cy="43.5" r="2.4" fill="#30d158"/><circle cx="52" cy="27" r="9" fill="#2f7cf6"/><path d="M43 27h18M52 18c-3.5 3-3.5 15 0 18M52 18c3.5 3 3.5 15 0 18" stroke="#fff" stroke-width="1.3" fill="none"/></svg>
+          <span>fotos</span>
+        </div>
+        <div class="vol" id="volNew" style="top: 372px">
           <svg width="76" height="64" viewBox="0 0 76 64"><rect x="4" y="14" width="68" height="40" rx="7" fill="url(#dg)"/><rect x="4" y="14" width="68" height="40" rx="7" fill="none" stroke="rgba(0,0,0,.18)"/><rect x="12" y="42" width="30" height="3" rx="1.5" fill="#8a96a5"/><circle cx="60" cy="43.5" r="2.4" fill="#30d158"/><circle cx="52" cy="27" r="9" fill="#2f7cf6"/><path d="M43 27h18M52 18c-3.5 3-3.5 15 0 18M52 18c3.5 3 3.5 15 0 18" stroke="#fff" stroke-width="1.3" fill="none"/></svg>
           <span>video</span>
         </div>
 
         <div class="menu" id="menu">
-          <div class="mi dis">{{d_summary}}</div>
+          <div class="mi dis" id="menuHead" data-after="{{d_summary2}}">{{d_summary}}</div>
           <div class="msep"></div>
           <div class="mi"><span class="d i"></span>archivo</div>
+          <div class="mi new" id="rowFotos"><span class="d g"></span>fotos</div>
           <div class="mi" id="rowVideo"><span class="d i"></span>video</div>
           <div class="mi"><span class="d g"></span>wd-download</div>
           <div class="msep"></div>
-          <div class="mi">{{d_open}}<span class="kb">⌘O</span></div>
+          <div class="mi" id="rowOpen">{{d_open}}<span class="kb">⌘O</span></div>
           <div class="msep"></div>
           <div class="mi">{{d_quit}}<span class="kb">⌘Q</span></div>
+        </div>
+
+        <div class="sheet" id="sheet">
+          <h4>{{sh_title}}</h4>
+          <p class="lbl">{{sh_server}}</p>
+          <div class="box"><span class="pop">nas.local</span></div>
+          <p class="lbl">{{sh_cred}}</p>
+          <div class="box"><div class="opt"><span class="chk"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.2 4.1 7.3 8 2.8"/></svg></span>{{sh_cred_opt}}</div></div>
+          <p class="lbl">{{sh_shares}}</p>
+          <div class="box">
+            <div class="pick" id="pick"><span class="chk"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.2 4.1 7.3 8 2.8"/></svg></span><div><b>fotos</b><small>smb://nas.local/fotos</small></div></div>
+          </div>
+          <div class="btns"><span>{{sh_cancel}}</span><span class="pri" id="addBtn">{{sh_add}}</span></div>
         </div>
 
         <div class="notif" id="notif">
@@ -474,6 +525,10 @@
       <p class="lead rv">{{shots_lead}}</p>
       {{scheme}}
       <div class="shots">
+        <figure class="wide rv">
+          <img src="{{root}}img/{{img_new}}.webp" width="675" height="689" loading="lazy" alt="{{s_new_alt}}" data-scheme>
+          <figcaption>{{s_new_cap}}</figcaption>
+        </figure>
         <figure class="rv" style="--i:0">
           <img src="{{root}}img/{{img_gen}}.webp" width="652" height="391" loading="lazy" alt="{{s_gen_alt}}" data-scheme>
           <figcaption>{{s_gen_cap}}</figcaption>
@@ -523,6 +578,7 @@
       <details class="rv"><summary>{{q_lang}}</summary><p>{{a_lang}}</p></details>
       <details class="rv"><summary>{{q3}}</summary><p>{{a3}}</p></details>
       <details class="rv"><summary>{{q_mode}}</summary><p>{{a_mode}}</p></details>
+      <details class="rv"><summary>{{q_pick}}</summary><p>{{a_pick}}</p></details>
       <details class="rv"><summary>{{q4}}</summary><p>{{a4}}</p></details>
       <details class="rv"><summary>{{q5}}</summary><p>{{a5}}</p></details>
     </section>
@@ -581,9 +637,14 @@
       screen.style.setProperty('--k', (stage.clientWidth * (narrow ? .84 : .98) / 1000).toFixed(4));
     };
 
-    // Escena: el puntero abre el menú, monta «video» y macOS lo anuncia
+    // Escena: el puntero añade «fotos», que el Finder ya tenía montado, luego
+    // abre el menú, monta «video» y macOS lo anuncia
     const mbi = $('mbi'), menu = $('menu'), row = $('rowVideo'), vol = $('volNew'),
-          notif = $('notif'), cursor = $('cursor');
+          notif = $('notif'), cursor = $('cursor'), sheet = $('sheet'), pick = $('pick'),
+          addBtn = $('addBtn'), rowOpen = $('rowOpen'), rowFotos = $('rowFotos'), head = $('menuHead');
+    const fields = [...sheet.querySelectorAll('.fv')];
+    fields.forEach((f) => { f.dataset.ph = f.textContent; });
+    head.dataset.before = head.textContent;
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     let visible = true;
     const waitVisible = async () => { while (!visible || document.hidden) await sleep(300); };
@@ -604,16 +665,34 @@
     const reset = () => {
       menu.classList.remove('open'); mbi.classList.remove('on', 'busy');
       row.classList.remove('hl'); vol.classList.remove('show'); notif.classList.remove('show');
+      rowOpen.classList.remove('hl'); sheet.classList.remove('show'); pick.classList.remove('hl');
+      fields.forEach((f) => { f.textContent = f.dataset.ph; f.classList.remove('on'); });
+      rowFotos.classList.remove('show'); head.textContent = head.dataset.before;
       cursor.style.transition = 'none';
       cursor.style.transform = 'translate(600px, 440px)';
       cursor.offsetWidth; cursor.style.transition = '';
     };
-    const finalState = () => { reset(); vol.classList.add('show'); notif.classList.add('show'); cursor.style.display = 'none'; };
+    const finalState = () => { reset(); rowFotos.classList.add('show'); head.textContent = head.dataset.after; vol.classList.add('show'); notif.classList.add('show'); cursor.style.display = 'none'; };
 
     async function loop() {
       for (;;) {
         reset(); screen.classList.remove('fade');
         await sleep(900); await waitVisible();
+        // 1. Añadir un recurso que el Finder ya tiene montado
+        moveTo(mbi, 22, 14); await sleep(1150);
+        await click(); mbi.classList.add('on'); menu.classList.add('open'); await sleep(800);
+        moveTo(rowOpen, 70, 16); await sleep(1000);
+        rowOpen.classList.add('hl'); await sleep(300);
+        await click(); menu.classList.remove('open'); mbi.classList.remove('on'); rowOpen.classList.remove('hl');
+        sheet.classList.add('show'); await sleep(700);
+        // «fotos» is already mounted in Finder, so it comes ticked: straight to Add
+        moveTo(pick, 160, 18); await sleep(1100);
+        pick.classList.add('hl'); await sleep(900);
+        moveTo(addBtn, 28, 12); await sleep(1000);
+        addBtn.classList.add('press'); await click(); addBtn.classList.remove('press');
+        sheet.classList.remove('show'); rowFotos.classList.add('show'); head.textContent = head.dataset.after;
+        await sleep(1300); await waitVisible();
+        // 2. Montar «video» desde el menú
         moveTo(mbi, 22, 14); await sleep(1150);
         await click(); mbi.classList.add('on'); menu.classList.add('open'); await sleep(900);
         moveTo(row, 70, 16); await sleep(1000);
