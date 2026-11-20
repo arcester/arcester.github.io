@@ -122,7 +122,8 @@
     "a_pick": "No. Press + and pick the server: its shares that Finder already has mounted are listed and ticked, and “Choose Shares…” opens the macOS list with all the others. You can also type one by name. If the server already has a user and password in Connecter, the new shares use them; if not, the ones you type become the server’s. Leave the password empty to use the one Finder already saved. If you’ve used Connecter before, Settings › Keychain can also restore your shares from the ones saved in the Keychain.",
     "star_p": "Like Connecter? A star on GitHub helps more people find it.",
     "star_btn": "Star on GitHub",
-    "visits": "%@ visits"
+    "visits": "%@ visits",
+    "visits_one": "%@ visit"
   },
   "es": {
     "out": "connecter/es/index.html",
@@ -247,6 +248,7 @@
     "a_pick": "No. Pulsa + y elige el servidor: las carpetas de ese servidor que ya tenga montadas el Finder aparecen marcadas, y «Elegir recursos…» abre la lista de macOS con todas las demás. También puedes escribir el nombre de una. Si el servidor ya tiene usuario y contraseña en Connecter, las nuevas los usan; si no, los que escribas pasan a ser los del servidor. Deja la contraseña vacía para usar la que ya guardó el Finder. Si ya habías usado Connecter, en Ajustes › Llavero también puedes recuperar tus carpetas a partir de las guardadas en el Llavero.",
     "star_p": "¿Te gusta Connecter? Una estrella en GitHub ayuda a que más gente lo descubra.",
     "star_btn": "Dale una estrella",
-    "visits": "%@ visitas"
+    "visits": "%@ visitas",
+    "visits_one": "%@ visita"
   }
 }

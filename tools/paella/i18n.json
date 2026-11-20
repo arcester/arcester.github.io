@@ -108,7 +108,8 @@
   "cta_alt": "Prefer not to use Homebrew? Download the notarized zip from <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> and move Paella.app to Applications.",
   "star_p": "Like Paella? A star on GitHub helps more people find it.",
   "star_btn": "Star on GitHub",
-  "visits": "%@ visits"
+  "visits": "%@ visits",
+  "visits_one": "%@ visit"
  },
  "es": {
   "out": "paella/es/index.html",
@@ -219,6 +220,7 @@
   "cta_alt": "¿Prefieres no usar Homebrew? Descarga el zip notarizado desde <a href=\"https://github.com/arcester/paella/releases\">GitHub Releases</a> y mueve Paella.app a Aplicaciones.",
   "star_p": "¿Te gusta Paella? Una estrella en GitHub ayuda a que más gente la descubra.",
   "star_btn": "Dale una estrella",
-  "visits": "%@ visitas"
+  "visits": "%@ visitas",
+  "visits_one": "%@ visita"
  }
 }

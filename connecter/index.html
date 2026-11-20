@@ -636,7 +636,7 @@
       <a href="#support">Support</a>
     </nav>
     © 2026 <a href="https://arcesaez.com/">Guzmán Arce</a>
-    <p class="visits" id="visits" data-label="%@ visits" hidden></p>
+    <p class="visits" id="visits" data-label="%@ visits" data-one="%@ visit" hidden></p>
   </footer>
 
   <script>
@@ -792,12 +792,16 @@
     const num = (v) => v.toLocaleString(document.documentElement.lang);
     const getJSON = (url) => fetch(url).then((r) => (r.ok ? r.json() : Promise.reject(r.status)));
     const visits = $('visits'), seen = 'visit-connecter';
-    let first = /^https:$/.test(location.protocol) && !/^(localhost|127\.|\[::1\])/.test(location.hostname);
-    try { first = first && !sessionStorage.getItem(seen); sessionStorage.setItem(seen, '1'); } catch (e) {}
-    getJSON(`https://abacus.jasoncameron.dev/${first ? 'hit' : 'get'}/arcester.github.io/connecter`)
+    const abacus = (op) => getJSON(`https://abacus.jasoncameron.dev/${op}/arcester.github.io/connecter`);
+    const live = location.protocol === 'https:' && !/^(localhost|127\.|\[::1\])/.test(location.hostname);
+    let counted = false;
+    try { counted = !!sessionStorage.getItem(seen); } catch (e) {}
+    // Se suma la primera vez en la sesión; si solo toca leer y el contador aún no existe, también
+    const count = () => abacus('hit').then((r) => { try { sessionStorage.setItem(seen, '1'); } catch (e) {} return r; });
+    (live && !counted ? count() : abacus('get').catch(() => (live ? count() : Promise.reject())))
       .then(({ value }) => {
         if (!Number.isFinite(value) || value < 1) return;
-        visits.textContent = visits.dataset.label.replace('%@', num(value));
+        visits.textContent = visits.dataset[value === 1 ? 'one' : 'label'].replace('%@', num(value));
         visits.hidden = false;
       }).catch(() => {});
     getJSON('https://api.github.com/repos/arcester/connecter')
